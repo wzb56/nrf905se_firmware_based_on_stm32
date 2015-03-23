@@ -1,0 +1,1584 @@
+###############################################################################
+#                                                                             #
+# IAR ANSI C/C++ Compiler V5.40.0.51500/W32 for ARM     28/Apr/2011  09:50:56 #
+# Copyright (C) 1999-2009 IAR Systems AB.                                     #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\Administrator\桌面\2.4G\Demo\s #
+#                    ource\ILI9331.C                                          #
+#    Command line =  "C:\Documents and Settings\Administrator\桌面\2.4G\Demo\ #
+#                    source\ILI9331.C" -lC "C:\Documents and                  #
+#                    Settings\Administrator\桌面\2.4G\Demo\project\EWARMv5\De #
+#                    bug\List\" -lb "C:\Documents and                         #
+#                    Settings\Administrator\桌面\2.4G\Demo\project\EWARMv5\De #
+#                    bug\List\" -o "C:\Documents and                          #
+#                    Settings\Administrator\桌面\2.4G\Demo\project\EWARMv5\De #
+#                    bug\Obj\" --debug --endian=little --cpu=Cortex-M3 -e     #
+#                    --fpu=None --dlib_config "C:\Program Files\IAR           #
+#                    Systems\Embedded Workbench 5.4_2\arm\INC\DLib_Config_Ful #
+#                    l.h" -I "C:\Documents and Settings\Administrator\桌面\2. #
+#                    4G\Demo\project\EWARMv5\..\..\include\" -I               #
+#                    "C:\Documents and Settings\Administrator\桌面\2.4G\Demo\ #
+#                    project\EWARMv5\..\..\source\" -I "C:\Documents and      #
+#                    Settings\Administrator\桌面\2.4G\Demo\project\EWARMv5\.. #
+#                    \..\..\FWLib\library\inc\" -I "C:\Documents and          #
+#                    Settings\Administrator\桌面\2.4G\Demo\project\EWARMv5\.. #
+#                    \..\..\USBLib\library\inc\" -I "C:\Documents and         #
+#                    Settings\Administrator\桌面\2.4G\Demo\project\EWARMv5\.. #
+#                    \..\fatfs\" -I "C:\Program Files\IAR Systems\Embedded    #
+#                    Workbench 5.4_2\arm\INC\" -Ohz                           #
+#    List file    =  C:\Documents and Settings\Administrator\桌面\2.4G\Demo\p #
+#                    roject\EWARMv5\Debug\List\ILI9331.lst                    #
+#    Object file  =  C:\Documents and Settings\Administrator\桌面\2.4G\Demo\p #
+#                    roject\EWARMv5\Debug\Obj\ILI9331.o                       #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\Administrator\桌面\2.4G\Demo\source\ILI9331.C
+      1          
+      2          /*
+      3          TFT实际控制器型号MTM3225A 2。8“
+      4          GUANFU_WANG
+      5          */
+      6          
+      7          
+      8          
+      9          #include  "english_16x8.h"
+
+   \                                 In section .rodata, align 4
+   \   unsigned char const english[95][16]
+   \                     english:
+   \   00000000   000000000000       DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 60
+   \              000000000000
+   \              000000000000
+   \              0000183C    
+   \   00000016   3C3C18180018       DC8 60, 60, 24, 24, 0, 24, 24, 0, 0, 0, 0, 0, 0, 0, 102, 102, 102, 0, 0
+   \              180000000000
+   \              000066666600
+   \              00          
+   \   00000029   000000000000       DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 54, 54, 127, 54, 54, 54, 127, 54
+   \              000000000036
+   \              367F3636367F
+   \              36          
+   \   0000003C   360000000000       DC8 54, 0, 0, 0, 0, 0, 24, 24, 60, 102, 96, 48, 24, 12, 6, 102, 60, 24
+   \              18183C666030
+   \              180C06663C18
+   \   0000004E   180000000070       DC8 24, 0, 0, 0, 0, 112, 216, 218, 118, 12, 24, 48, 110, 91, 27, 14, 0
+   \              D8DA760C1830
+   \              6E5B1B0E00  
+   \   0000005F   000000000038       DC8 0, 0, 0, 0, 0, 56, 108, 108, 56, 96, 111, 102, 102, 59, 0, 0, 0, 0
+   \              6C6C38606F66
+   \              663B00000000
+   \   00000071   000000181818       DC8 0, 0, 0, 24, 24, 24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 24
+   \              000000000000
+   \              000000000000
+   \              000C18      
+   \   00000086   183030303030       DC8 24, 48, 48, 48, 48, 48, 24, 24, 12, 0, 0, 0, 0, 0, 48, 24, 24, 12
+   \              18180C000000
+   \              00003018180C
+   \   00000098   0C0C0C0C1818       DC8 12, 12, 12, 12, 24, 24, 48, 0, 0, 0, 0, 0, 0, 0, 54, 28, 127, 28
+   \              300000000000
+   \              0000361C7F1C
+   \   000000AA   360000000000       DC8 54, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 24, 126, 24, 24, 0, 0, 0
+   \              000000000000
+   \              18187E181800
+   \              0000        
+   \   000000BE   000000000000       DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28, 28, 12, 24, 0, 0, 0, 0, 0
+   \              000000000000
+   \              1C1C0C180000
+   \              000000      
+   \   000000D3   000000007E00       DC8 0, 0, 0, 0, 126, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00000000    
+   \   000000E9   001C1C000000       DC8 0, 28, 28, 0, 0, 0, 0, 0, 0, 0, 6, 6, 12, 12, 24, 24, 48, 48, 96
+   \              000000000606
+   \              0C0C18183030
+   \              60          
+   \   000000FC   600000000000       DC8 96, 0, 0, 0, 0, 0, 0, 30, 51, 55, 55, 51, 59, 59, 51, 30, 0, 0, 0
+   \              001E33373733
+   \              3B3B331E0000
+   \              00          
+   \   0000010F   000000000C1C       DC8 0, 0, 0, 0, 12, 28, 124, 12, 12, 12, 12, 12, 12, 0, 0, 0, 0, 0, 0
+   \              7C0C0C0C0C0C
+   \              0C0000000000
+   \              00          
+   \   00000122   003C6666060C       DC8 0, 60, 102, 102, 6, 12, 24, 48, 96, 126, 0, 0, 0, 0, 0, 0, 0, 60
+   \              1830607E0000
+   \              00000000003C
+   \   00000134   6666061C0666       DC8 102, 102, 6, 28, 6, 102, 102, 60, 0, 0, 0, 0, 0, 0, 0, 48, 48, 54
+   \              663C00000000
+   \              000000303036
+   \   00000146   3636667F0606       DC8 54, 54, 102, 127, 6, 6, 0, 0, 0, 0, 0, 0, 0, 126, 96, 96, 96, 124
+   \              000000000000
+   \              007E6060607C
+   \   00000158   06060C780000       DC8 6, 6, 12, 120, 0, 0, 0, 0, 0, 0, 0, 28, 24, 48, 124, 102, 102, 102
+   \              00000000001C
+   \              18307C666666
+   \   0000016A   663C00000000       DC8 102, 60, 0, 0, 0, 0, 0, 0, 0, 126, 6, 12, 12, 24, 24, 48, 48, 48, 0
+   \              0000007E060C
+   \              0C1818303030
+   \              00          
+   \   0000017D   000000000000       DC8 0, 0, 0, 0, 0, 0, 60, 102, 102, 118, 60, 110, 102, 102, 60, 0, 0, 0
+   \              3C6666763C6E
+   \              66663C000000
+   \   0000018F   000000003C66       DC8 0, 0, 0, 0, 60, 102, 102, 102, 102, 62, 12, 24, 56, 0, 0, 0, 0, 0
+   \              6666663E0C18
+   \              380000000000
+   \   000001A1   000000001C1C       DC8 0, 0, 0, 0, 28, 28, 0, 0, 0, 28, 28, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28
+   \              0000001C1C00
+   \              000000000000
+   \              00001C      
+   \   000001B6   1C0000001C1C       DC8 28, 0, 0, 0, 28, 28, 12, 24, 0, 0, 0, 0, 0, 6, 12, 24, 48, 96, 48
+   \              0C1800000000
+   \              00060C183060
+   \              30          
+   \   000001C9   180C06000000       DC8 24, 12, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 126, 0, 126, 0, 0, 0, 0, 0
+   \              000000000000
+   \              007E007E0000
+   \              000000      
+   \   000001DE   000000000060       DC8 0, 0, 0, 0, 0, 96, 48, 24, 12, 6, 12, 24, 48, 96, 0, 0, 0, 0, 0, 0
+   \              30180C060C18
+   \              306000000000
+   \              0000        
+   \   000001F2   003C66660C18       DC8 0, 60, 102, 102, 12, 24, 24, 0, 24, 24, 0, 0, 0, 0, 0, 0, 0, 126
+   \              180018180000
+   \              00000000007E
+   \   00000204   C3C3CFDBDBCF       DC8 195, 195, 207, 219, 219, 207, 192, 127, 0, 0, 0, 0, 0, 0, 0, 24, 60
+   \              C07F00000000
+   \              000000183C  
+   \   00000215   6666667E6666       DC8 102, 102, 102, 126, 102, 102, 102, 0, 0, 0, 0, 0, 0, 0, 124, 102
+   \              660000000000
+   \              00007C66    
+   \   00000225   66667C666666       DC8 102, 102, 124, 102, 102, 102, 124, 0, 0, 0, 0, 0, 0, 0, 60, 102
+   \              7C0000000000
+   \              00003C66    
+   \   00000235   666060606666       DC8 102, 96, 96, 96, 102, 102, 60, 0, 0, 0, 0, 0, 0, 0, 120, 108, 102
+   \              3C0000000000
+   \              0000786C66  
+   \   00000246   666666666C78       DC8 102, 102, 102, 102, 108, 120, 0, 0, 0, 0, 0, 0, 0, 126, 96, 96, 96
+   \              000000000000
+   \              007E606060  
+   \   00000257   7C6060607E00       DC8 124, 96, 96, 96, 126, 0, 0, 0, 0, 0, 0, 0, 126, 96, 96, 96, 124, 96
+   \              000000000000
+   \              7E6060607C60
+   \   00000269   606060000000       DC8 96, 96, 96, 0, 0, 0, 0, 0, 0, 0, 60, 102, 102, 96, 96, 110, 102
+   \              000000003C66
+   \              6660606E66  
+   \   0000027A   663E00000000       DC8 102, 62, 0, 0, 0, 0, 0, 0, 0, 102, 102, 102, 102, 126, 102, 102
+   \              000000666666
+   \              667E6666    
+   \   0000028A   666600000000       DC8 102, 102, 0, 0, 0, 0, 0, 0, 0, 60, 24, 24, 24, 24, 24, 24, 24, 60
+   \              0000003C1818
+   \              18181818183C
+   \   0000029C   000000000000       DC8 0, 0, 0, 0, 0, 0, 0, 60, 102, 102, 96, 96, 110, 102, 102, 62, 0, 0
+   \              003C66666060
+   \              6E66663E0000
+   \   000002AE   000000000066       DC8 0, 0, 0, 0, 0, 102, 102, 108, 108, 120, 108, 108, 102, 102, 0, 0, 0
+   \              666C6C786C6C
+   \              6666000000  
+   \   000002BF   000000006060       DC8 0, 0, 0, 0, 96, 96, 96, 96, 96, 96, 96, 96, 126, 0, 0, 0, 0, 0, 0
+   \              606060606060
+   \              7E0000000000
+   \              00          
+   \   000002D2   006363776B6B       DC8 0, 99, 99, 119, 107, 107, 107, 99, 99, 99, 0, 0, 0, 0, 0, 0, 0, 99
+   \              6B6363630000
+   \              000000000063
+   \   000002E4   63737B6F6763       DC8 99, 115, 123, 111, 103, 99, 99, 99, 0, 0, 0, 0, 0, 0, 0, 60, 102
+   \              636300000000
+   \              0000003C66  
+   \   000002F5   666666666666       DC8 102, 102, 102, 102, 102, 102, 60, 0, 0, 0, 0, 0, 0, 0, 124, 102
+   \              3C0000000000
+   \              00007C66    
+   \   00000305   66667C606060       DC8 102, 102, 124, 96, 96, 96, 96, 0, 0, 0, 0, 0, 0, 0, 60, 102, 102
+   \              600000000000
+   \              00003C6666  
+   \   00000316   66666666663C       DC8 102, 102, 102, 102, 102, 60, 12, 6, 0, 0, 0, 0, 0, 124, 102, 102
+   \              0C0600000000
+   \              007C6666    
+   \   00000326   667C6C666666       DC8 102, 124, 108, 102, 102, 102, 0, 0, 0, 0, 0, 0, 0, 60, 102, 96, 48
+   \              000000000000
+   \              003C666030  
+   \   00000337   180C06663C00       DC8 24, 12, 6, 102, 60, 0, 0, 0, 0, 0, 0, 0, 126, 24, 24, 24, 24, 24
+   \              000000000000
+   \              7E1818181818
+   \   00000349   181818000000       DC8 24, 24, 24, 0, 0, 0, 0, 0, 0, 0, 102, 102, 102, 102, 102, 102, 102
+   \              000000006666
+   \              6666666666  
+   \   0000035A   663C00000000       DC8 102, 60, 0, 0, 0, 0, 0, 0, 0, 102, 102, 102, 102, 102, 102, 102, 60
+   \              000000666666
+   \              666666663C  
+   \   0000036B   180000000000       DC8 24, 0, 0, 0, 0, 0, 0, 0, 99, 99, 99, 107, 107, 107, 54, 54, 54, 0
+   \              00006363636B
+   \              6B6B36363600
+   \   0000037D   000000000000       DC8 0, 0, 0, 0, 0, 0, 102, 102, 52, 24, 24, 44, 102, 102, 102, 0, 0, 0
+   \              66663418182C
+   \              666666000000
+   \   0000038F   000000006666       DC8 0, 0, 0, 0, 102, 102, 102, 102, 60, 24, 24, 24, 24, 0, 0, 0, 0, 0
+   \              66663C181818
+   \              180000000000
+   \   000003A1   00007E06060C       DC8 0, 0, 126, 6, 6, 12, 24, 48, 96, 96, 126, 0, 0, 0, 0, 0, 0, 0, 60
+   \              183060607E00
+   \              000000000000
+   \              3C          
+   \   000003B4   303030303030       DC8 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 60, 0, 0, 0, 0, 96, 96, 48
+   \              303030303C00
+   \              000000606030
+   \   000003C6   3018180C0C06       DC8 48, 24, 24, 12, 12, 6, 6, 0, 0, 0, 0, 0, 0, 60, 12, 12, 12, 12, 12
+   \              060000000000
+   \              003C0C0C0C0C
+   \              0C          
+   \   000003D9   0C0C0C0C0C3C       DC8 12, 12, 12, 12, 12, 60, 0, 0, 24, 60, 102, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0000183C6600
+   \              000000000000
+   \              00          
+   \   000003EC   000000000000       DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 0, 0, 56
+   \              000000000000
+   \              000000000000
+   \              FF000038    
+   \   00000402   180C00000000       DC8 24, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 60, 6, 6
+   \              000000000000
+   \              000000000000
+   \              003C0606    
+   \   00000418   3E66663E0000       DC8 62, 102, 102, 62, 0, 0, 0, 0, 0, 0, 0, 96, 96, 124, 102, 102, 102
+   \              000000000060
+   \              607C666666  
+   \   00000429   66667C000000       DC8 102, 102, 124, 0, 0, 0, 0, 0, 0, 0, 0, 0, 60, 102, 96, 96, 96, 102
+   \              000000000000
+   \              3C6660606066
+   \   0000043B   3C0000000000       DC8 60, 0, 0, 0, 0, 0, 0, 0, 6, 6, 62, 102, 102, 102, 102, 102, 62, 0
+   \              000006063E66
+   \              666666663E00
+   \   0000044D   000000000000       DC8 0, 0, 0, 0, 0, 0, 0, 0, 60, 102, 102, 126, 96, 96, 60, 0, 0, 0, 0
+   \              00003C66667E
+   \              60603C000000
+   \              00          
+   \   00000460   0000001E3030       DC8 0, 0, 0, 30, 48, 48, 48, 126, 48, 48, 48, 48, 0, 0, 0, 0, 0, 0, 0
+   \              307E30303030
+   \              000000000000
+   \              00          
+   \   00000473   00003E666666       DC8 0, 0, 62, 102, 102, 102, 102, 102, 62, 6, 6, 124, 0, 0, 0, 0, 96
+   \              66663E06067C
+   \              0000000060  
+   \   00000484   607C66666666       DC8 96, 124, 102, 102, 102, 102, 102, 102, 0, 0, 0, 0, 0, 0, 24, 24, 0
+   \              666600000000
+   \              0000181800  
+   \   00000495   781818181818       DC8 120, 24, 24, 24, 24, 24, 126, 0, 0, 0, 0, 0, 0, 12, 12, 0, 60, 12
+   \              7E0000000000
+   \              000C0C003C0C
+   \   000004A7   0C0C0C0C0C0C       DC8 12, 12, 12, 12, 12, 12, 12, 120, 0, 0, 0, 0, 96, 96, 102, 102, 108
+   \              0C7800000000
+   \              606066666C  
+   \   000004B8   786C66660000       DC8 120, 108, 102, 102, 0, 0, 0, 0, 0, 0, 0, 120, 24, 24, 24, 24, 24
+   \              000000000078
+   \              1818181818  
+   \   000004C9   18187E000000       DC8 24, 24, 126, 0, 0, 0, 0, 0, 0, 0, 0, 0, 126, 107, 107, 107, 107
+   \              000000000000
+   \              7E6B6B6B6B  
+   \   000004DA   6B6300000000       DC8 107, 99, 0, 0, 0, 0, 0, 0, 0, 0, 0, 124, 102, 102, 102, 102, 102
+   \              00000000007C
+   \              6666666666  
+   \   000004EB   660000000000       DC8 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 60, 102, 102, 102, 102, 102, 60, 0
+   \              000000003C66
+   \              666666663C00
+   \   000004FD   000000000000       DC8 0, 0, 0, 0, 0, 0, 0, 0, 124, 102, 102, 102, 102, 102, 124, 96, 96
+   \              00007C666666
+   \              66667C6060  
+   \   0000050E   600000000000       DC8 96, 0, 0, 0, 0, 0, 0, 62, 102, 102, 102, 102, 102, 62, 6, 6, 6, 0
+   \              003E66666666
+   \              663E06060600
+   \   00000520   000000000066       DC8 0, 0, 0, 0, 0, 102, 110, 112, 96, 96, 96, 96, 0, 0, 0, 0, 0, 0, 0
+   \              6E7060606060
+   \              000000000000
+   \              00          
+   \   00000533   00003E60603C       DC8 0, 0, 62, 96, 96, 60, 6, 6, 124, 0, 0, 0, 0, 0, 0, 0, 48, 48, 126
+   \              06067C000000
+   \              000000003030
+   \              7E          
+   \   00000546   30303030301E       DC8 48, 48, 48, 48, 48, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 102, 102, 102
+   \              000000000000
+   \              000000666666
+   \   00000558   6666663E0000       DC8 102, 102, 102, 62, 0, 0, 0, 0, 0, 0, 0, 0, 0, 102, 102, 102, 102
+   \              000000000000
+   \              0066666666  
+   \   00000569   663C18000000       DC8 102, 60, 24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 99, 107, 107, 107, 107, 54
+   \              000000000000
+   \              636B6B6B6B36
+   \   0000057B   360000000000       DC8 54, 0, 0, 0, 0, 0, 0, 0, 0, 0, 102, 102, 60, 24, 60, 102, 102, 0, 0
+   \              000000006666
+   \              3C183C666600
+   \              00          
+   \   0000058E   000000000000       DC8 0, 0, 0, 0, 0, 0, 0, 102, 102, 102, 102, 102, 102, 60, 12, 24, 240
+   \              006666666666
+   \              663C0C18F0  
+   \   0000059F   000000000000       DC8 0, 0, 0, 0, 0, 0, 126, 6, 12, 24, 48, 96, 126, 0, 0, 0, 0, 0, 0, 0
+   \              7E060C183060
+   \              7E0000000000
+   \              0000        
+   \   000005B3   0C1818183060       DC8 12, 24, 24, 24, 48, 96, 48, 24, 24, 24, 12, 0, 0, 0, 0, 0, 24, 24
+   \              301818180C00
+   \              000000001818
+   \   000005C5   181818181818       DC8 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 0, 0, 0, 0, 48, 24, 24, 24
+   \              181818180000
+   \              000030181818
+   \   000005D7   0C060C181818       DC8 12, 6, 12, 24, 24, 24, 48, 0, 0, 0, 0, 0, 113, 219, 142, 0, 0, 0, 0
+   \              300000000000
+   \              71DB8E000000
+   \              00          
+   \   000005EA   000000000000       DC8 0, 0, 0, 0, 0, 0
+     10          #include"ILI9331.h"
+     11          #include"main.h"
+     12          extern unsigned char val_Speed[16][100];
+     13          /*******************************************************************************
+     14          * Function Name  : GPIO_Config
+     15          * Description    : Configures the different GPIO ports pins.
+     16          * Input          : None
+     17          * Output         : None
+     18          * Return         : None
+     19          *******************************************************************************/
+     20          
+
+   \                                 In section .text, align 2, keep-with-next
+     21          void LCD_GPIO_OUTPUT(void)
+     22          {
+   \                     LCD_GPIO_OUTPUT:
+   \   00000000   80B5               PUSH     {R7,LR}
+     23            GPIO_InitTypeDef GPIO_InitStructure;
+     24          
+     25            /* Enable GPIOB clock */
+     26            RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB|RCC_APB2Periph_AFIO, ENABLE);
+   \   00000002   0121               MOVS     R1,#+1
+   \   00000004   0920               MOVS     R0,#+9
+   \   00000006   ........           BL       RCC_APB2PeriphClockCmd
+     27            GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7;
+   \   0000000A   FF20               MOVS     R0,#+255
+   \   0000000C   ........           BL       ?Subroutine2
+     28            GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+     29            GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+     30            GPIO_Init(GPIOB, &GPIO_InitStructure);
+   \                     ??CrossCallReturnLabel_0:
+   \   00000010   ....               B.N      ?Subroutine0
+     31          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   00A9               ADD      R1,SP,#+0
+   \   00000002   ....               LDR.N    R0,??DataTable1  ;; 0x40010c00
+   \                     ??Subroutine0_0:
+   \   00000004   ........           BL       GPIO_Init
+   \   00000008   01BD               POP      {R0,PC}          ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine2:
+   \   00000000   ADF80000           STRH     R0,[SP, #+0]
+   \   00000004   1020               MOVS     R0,#+16
+   \   00000006   8DF80300           STRB     R0,[SP, #+3]
+   \   0000000A   0320               MOVS     R0,#+3
+   \   0000000C   8DF80200           STRB     R0,[SP, #+2]
+   \   00000010   7047               BX       LR
+
+   \                                 In section .text, align 2, keep-with-next
+     32          void LCD_GPIO_INPUT(void)
+     33          {
+   \                     LCD_GPIO_INPUT:
+   \   00000000   80B5               PUSH     {R7,LR}
+     34            GPIO_InitTypeDef GPIO_InitStructure;
+     35          
+     36            /* Enable GPIOB clock */
+     37            RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB|RCC_APB2Periph_AFIO, ENABLE);
+   \   00000002   0121               MOVS     R1,#+1
+   \   00000004   0920               MOVS     R0,#+9
+   \   00000006   ........           BL       RCC_APB2PeriphClockCmd
+     38            GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7;
+   \   0000000A   FF20               MOVS     R0,#+255
+   \   0000000C   ADF80000           STRH     R0,[SP, #+0]
+     39            GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+   \   00000010   0420               MOVS     R0,#+4
+   \   00000012   8DF80300           STRB     R0,[SP, #+3]
+     40            //GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+     41            GPIO_Init(GPIOB, &GPIO_InitStructure);
+   \   00000016                      REQUIRE ?Subroutine0
+   \   00000016                      ;; // Fall through to label ?Subroutine0
+     42          
+     43          }
+     44          
+
+   \                                 In section .text, align 2, keep-with-next
+     45          void  LCD_Set_GPIO_Config(void)
+     46          {
+   \                     LCD_Set_GPIO_Config:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   82B0               SUB      SP,SP,#+8
+     47            
+     48            GPIO_InitTypeDef GPIO_InitStructure;
+     49            /* Enable GPIOB clock */
+     50            RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+   \   00000004   0121               MOVS     R1,#+1
+   \   00000006   0820               MOVS     R0,#+8
+   \   00000008   ........           BL       RCC_APB2PeriphClockCmd
+     51            GPIO_InitStructure.GPIO_Pin =LCD_CS_BIT|LCD_RS_BIT|LCD_WR_BIT|LCD_RD_BIT;                               
+   \   0000000C   4FF47040           MOV      R0,#+61440
+   \   00000010   ........           BL       ?Subroutine2
+     52            GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+     53            GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+     54            GPIO_Init(GPIOB, &GPIO_InitStructure);
+   \                     ??CrossCallReturnLabel_1:
+   \   00000014   ....               LDR.N    R4,??DataTable1  ;; 0x40010c00
+   \   00000016   00A9               ADD      R1,SP,#+0
+   \   00000018   2046               MOV      R0,R4
+   \   0000001A   ........           BL       GPIO_Init
+     55            LCD_CS_H(); 
+   \   0000001E   4FF48050           MOV      R0,#+4096
+   \   00000022   2061               STR      R0,[R4, #+16]
+     56            LCD_RD_H();
+   \   00000024   4FF40040           MOV      R0,#+32768
+   \   00000028   2061               STR      R0,[R4, #+16]
+     57            LCD_RS_H();   
+   \   0000002A   4FF40050           MOV      R0,#+8192
+   \   0000002E   2061               STR      R0,[R4, #+16]
+     58            LCD_WR_H();
+   \   00000030   4FF48040           MOV      R0,#+16384
+   \   00000034   2061               STR      R0,[R4, #+16]
+     59          }
+   \   00000036   13BD               POP      {R0,R1,R4,PC}    ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+     60          void  LCD_BL_GPIO_Config(void)
+     61          {
+   \                     LCD_BL_GPIO_Config:
+   \   00000000   80B5               PUSH     {R7,LR}
+     62            
+     63            GPIO_InitTypeDef GPIO_InitStructure;
+     64            /* Enable GPIOA clock */
+     65            RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_AFIO, ENABLE);
+   \   00000002   0121               MOVS     R1,#+1
+   \   00000004   0520               MOVS     R0,#+5
+   \   00000006   ........           BL       RCC_APB2PeriphClockCmd
+     66            GPIO_InitStructure.GPIO_Pin =LCD_BL_BIT;                               
+   \   0000000A   4FF40040           MOV      R0,#+32768
+   \   0000000E   ........           BL       ?Subroutine2
+     67            GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+     68            GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+     69            GPIO_Init(GPIOA, &GPIO_InitStructure); 
+   \                     ??CrossCallReturnLabel_2:
+   \   00000012   00A9               ADD      R1,SP,#+0
+   \   00000014   0048               LDR.N    R0,??LCD_BL_GPIO_Config_0  ;; 0x40010800
+   \   00000016   ....               B.N      ??Subroutine0_0
+   \                     ??LCD_BL_GPIO_Config_0:
+   \   00000018   00080140           DC32     0x40010800
+     70          }
+     71          
+     72          
+
+   \                                 In section .text, align 2, keep-with-next
+     73          void LCD_WR_DATA16(unsigned int data)//写积存器数据
+     74          {
+   \                     LCD_WR_DATA16:
+   \   00000000   10B5               PUSH     {R4,LR}
+     75               
+     76               LCD_RS_H();
+   \   00000002   ....               LDR.N    R1,??DataTable3  ;; 0x40010c0c
+   \   00000004   4FF40052           MOV      R2,#+8192
+   \   00000008   4A60               STR      R2,[R1, #+4]
+     77               LCD_CS_L();
+   \   0000000A   ....               B.N      ?Subroutine1
+     78               
+     79               GPIOB->ODR=(GPIOB->ODR&0XFF00)| (unsigned char)(data>>8);    
+     80               LCD_WR_L();
+     81               LCD_WR_H();
+     82               
+     83               GPIOB->ODR=(GPIOB->ODR&0XFF00)|(unsigned char)data;    
+     84               LCD_WR_L();
+     85               LCD_WR_H();
+     86               LCD_CS_H();
+     87            
+     88          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine1:
+   \   00000000   4FF48052           MOV      R2,#+4096
+   \   00000004   8A60               STR      R2,[R1, #+8]
+   \   00000006   0B68               LDR      R3,[R1, #+0]
+   \   00000008   03F47F43           AND      R3,R3,#0xFF00
+   \   0000000C   040A               LSRS     R4,R0,#+8
+   \   0000000E   E4B2               UXTB     R4,R4
+   \   00000010   2343               ORRS     R3,R4,R3
+   \   00000012   0B60               STR      R3,[R1, #+0]
+   \   00000014   4FF48043           MOV      R3,#+16384
+   \   00000018   8B60               STR      R3,[R1, #+8]
+   \   0000001A   4B60               STR      R3,[R1, #+4]
+   \   0000001C   0C68               LDR      R4,[R1, #+0]
+   \   0000001E   04F47F44           AND      R4,R4,#0xFF00
+   \   00000022   C0B2               UXTB     R0,R0
+   \   00000024   2043               ORRS     R0,R0,R4
+   \   00000026   0860               STR      R0,[R1, #+0]
+   \   00000028   8B60               STR      R3,[R1, #+8]
+   \   0000002A   4B60               STR      R3,[R1, #+4]
+   \   0000002C   4A60               STR      R2,[R1, #+4]
+   \   0000002E   10BD               POP      {R4,PC}          ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+     89          void LCD_WR_REG16(unsigned int index)//写积存器命令
+     90          {
+   \                     LCD_WR_REG16:
+   \   00000000   10B5               PUSH     {R4,LR}
+     91              
+     92               LCD_RS_L();
+   \   00000002   ....               LDR.N    R1,??DataTable3  ;; 0x40010c0c
+   \   00000004   4FF40052           MOV      R2,#+8192
+   \   00000008   8A60               STR      R2,[R1, #+8]
+     93               LCD_CS_L();  
+   \   0000000A                      REQUIRE ?Subroutine1
+   \   0000000A                      ;; // Fall through to label ?Subroutine1
+     94               
+     95               GPIOB->ODR=(GPIOB->ODR&0XFF00)| (unsigned char)(index>>8);     
+     96               LCD_WR_L();
+     97               LCD_WR_H();
+     98               
+     99               GPIOB->ODR=(GPIOB->ODR&0XFF00)|(unsigned char)index;    
+    100               LCD_WR_L();
+    101               LCD_WR_H();
+    102               LCD_CS_H();
+    103          }
+
+   \                                 In section .text, align 4, keep-with-next
+    104          unsigned int LCD_RD_DATA16(void)//读积存器数据
+    105          {
+   \                     LCD_RD_DATA16:
+   \   00000000   70B5               PUSH     {R4-R6,LR}
+    106               unsigned int data;
+    107               LCD_WR_H();
+   \   00000002   0E4C               LDR.N    R4,??LCD_RD_DATA16_0  ;; 0x40010c08
+   \   00000004   4FF48040           MOV      R0,#+16384
+   \   00000008   A060               STR      R0,[R4, #+8]
+    108               LCD_RS_H();
+   \   0000000A   4FF40050           MOV      R0,#+8192
+   \   0000000E   A060               STR      R0,[R4, #+8]
+    109               LCD_GPIO_INPUT();
+   \   00000010   ........           BL       LCD_GPIO_INPUT
+    110               LCD_CS_L(); 
+   \   00000014   4FF48050           MOV      R0,#+4096
+   \   00000018   E060               STR      R0,[R4, #+12]
+    111           
+    112               LCD_RD_L();
+   \   0000001A   4FF40041           MOV      R1,#+32768
+   \   0000001E   E160               STR      R1,[R4, #+12]
+    113               
+    114               LCD_RD_H();
+   \   00000020   A160               STR      R1,[R4, #+8]
+    115               data=(0x00ff&DATA_LCD_PIN); 
+   \   00000022   2568               LDR      R5,[R4, #+0]
+    116               data=data<<8;
+    117               
+    118          	 
+    119               LCD_RD_L();
+   \   00000024   E160               STR      R1,[R4, #+12]
+    120               
+    121               LCD_RD_H();
+   \   00000026   A160               STR      R1,[R4, #+8]
+    122               data|=(0x00ff&DATA_LCD_PIN);
+   \   00000028   2668               LDR      R6,[R4, #+0]
+    123               
+    124               LCD_CS_H();
+   \   0000002A   A060               STR      R0,[R4, #+8]
+    125               LCD_GPIO_OUTPUT();
+   \   0000002C   ........           BL       LCD_GPIO_OUTPUT
+    126               return data;
+   \   00000030   E8B2               UXTB     R0,R5
+   \   00000032   F1B2               UXTB     R1,R6
+   \   00000034   41EA0020           ORR      R0,R1,R0, LSL #+8
+   \   00000038   70BD               POP      {R4-R6,PC}       ;; return
+   \   0000003A   00BF               Nop      
+   \                     ??LCD_RD_DATA16_0:
+   \   0000003C   080C0140           DC32     0x40010c08
+    127            
+    128          }
+
+   \                                 In section .text, align 2, keep-with-next
+    129          void LCD_WR_REG(unsigned int index,unsigned int data)
+    130          {
+   \                     LCD_WR_REG:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   0C46               MOV      R4,R1
+    131               LCD_WR_REG16(index);
+   \   00000004   ........           BL       LCD_WR_REG16
+    132               LCD_WR_DATA16(data);
+   \   00000008   2046               MOV      R0,R4
+   \   0000000A   BDE81040           POP      {R4,LR}
+   \   0000000E   ....               B.N      LCD_WR_DATA16
+    133          }
+    134          
+    135          
+
+   \                                 In section .text, align 4, keep-with-next
+    136          void LCD_Init(void)
+    137          {   
+   \                     LCD_Init:
+   \   00000000   F8B5               PUSH     {R3-R7,LR}
+    138          
+    139                LCD_BL_GPIO_Config();
+   \   00000002   ........           BL       LCD_BL_GPIO_Config
+    140                LCD_GPIO_OUTPUT();
+   \   00000006   ........           BL       LCD_GPIO_OUTPUT
+    141                LCD_Set_GPIO_Config();   
+   \   0000000A   ........           BL       LCD_Set_GPIO_Config
+    142             // LCD_RST_L();
+    143              
+    144             // LCD_RST_H();
+    145                LCD_BL_L(); 
+   \   0000000E   764C               LDR.N    R4,??LCD_Init_0  ;; 0x40010810
+   \   00000010   4FF40045           MOV      R5,#+32768
+   \   00000014   6560               STR      R5,[R4, #+4]
+    146                 Delay(10);
+                        ^
+Warning[Pe223]: function "Delay" declared implicitly
+   \   00000016   ........           BL       ?Subroutine3
+    147            //  delay_ms(5000);
+    148                
+    149                LCD_WR_REG(0x00e5,0x8000); 
+   \                     ??CrossCallReturnLabel_7:
+   \   0000001A   2946               MOV      R1,R5
+   \   0000001C   E520               MOVS     R0,#+229
+   \   0000001E   ........           BL       LCD_WR_REG
+    150                LCD_WR_REG(0x0000,0x0001); 
+   \   00000022   0121               MOVS     R1,#+1
+   \   00000024   0020               MOVS     R0,#+0
+   \   00000026   ........           BL       LCD_WR_REG
+    151                LCD_WR_REG(0x0001,0x0000);//S 
+   \   0000002A   0021               MOVS     R1,#+0
+   \   0000002C   0120               MOVS     R0,#+1
+   \   0000002E   ........           BL       LCD_WR_REG
+    152                 Delay(10);
+   \   00000032   ........           BL       ?Subroutine3
+    153          
+    154                LCD_WR_REG(0x02, 0x0700); // set 1 line inversion
+   \                     ??CrossCallReturnLabel_6:
+   \   00000036   4FF4E061           MOV      R1,#+1792
+   \   0000003A   0220               MOVS     R0,#+2
+   \   0000003C   ........           BL       LCD_WR_REG
+    155                Delay(5);
+   \   00000040   0520               MOVS     R0,#+5
+   \   00000042   ........           BL       Delay
+    156                  // LCD_WR_REG(0x03, 0x10B0); // set GRAM write direction and BGR=1.
+    157          #if   ID_AM==000       
+    158          	     LCD_WR_REG(0x0003,0x1000);//屏幕旋转控制 TFM=0,TRI=0,SWAP=1,16 bits system interface  swap RGB to BRG，此处ORG和HWM 为0
+    159          #elif ID_AM==001        
+    160          	     LCD_WR_REG(0x0003,0x1008);      
+   \   00000046   41F20801           MOVW     R1,#+4104
+   \   0000004A   0320               MOVS     R0,#+3
+   \   0000004C   ........           BL       LCD_WR_REG
+    161          #elif ID_AM==010  
+    162          	     LCD_WR_REG(0x0003,0x1010);        
+    163          #elif ID_AM==011
+    164          	     LCD_WR_REG(0x0003,0x1018);
+    165          #elif ID_AM==100  
+    166          	     LCD_WR_REG(0x0003,0x1020);      
+    167          #elif ID_AM==101  
+    168          	     LCD_WR_REG(0x0003,0x1028);      
+    169          #elif ID_AM==110  
+    170          	     LCD_WR_REG(0x0003,0x1030);      
+    171          #elif ID_AM==111  
+    172          	     LCD_WR_REG(0x0003,0x1038);
+    173          #endif    
+    174                   LCD_WR_REG(0x04, 0x0000); // Resize register
+   \   00000050   0021               MOVS     R1,#+0
+   \   00000052   0420               MOVS     R0,#+4
+   \   00000054   ........           BL       LCD_WR_REG
+    175                   LCD_WR_REG(0x08, 0x0404); // set the back porch and front porch
+   \   00000058   40F20446           MOVW     R6,#+1028
+   \   0000005C   3146               MOV      R1,R6
+   \   0000005E   0820               MOVS     R0,#+8
+   \   00000060   ........           BL       LCD_WR_REG
+    176                   LCD_WR_REG(0x09, 0x0000); // set non-display area refresh cycle ISC[3:0]
+   \   00000064   0021               MOVS     R1,#+0
+   \   00000066   0920               MOVS     R0,#+9
+   \   00000068   ........           BL       LCD_WR_REG
+    177                   LCD_WR_REG(0x0A, 0x0000); // FMARK function
+   \   0000006C   0021               MOVS     R1,#+0
+   \   0000006E   0A20               MOVS     R0,#+10
+   \   00000070   ........           BL       LCD_WR_REG
+    178                   LCD_WR_REG(0x0C, 0x0000); // RGB interface setting
+   \   00000074   0021               MOVS     R1,#+0
+   \   00000076   0C20               MOVS     R0,#+12
+   \   00000078   ........           BL       LCD_WR_REG
+    179                   LCD_WR_REG(0x0D, 0x0000); // Frame marker Position
+   \   0000007C   0021               MOVS     R1,#+0
+   \   0000007E   0D20               MOVS     R0,#+13
+   \   00000080   ........           BL       LCD_WR_REG
+    180                   LCD_WR_REG(0x0F, 0x0000); // RGB interface polarity
+   \   00000084   0021               MOVS     R1,#+0
+   \   00000086   0F20               MOVS     R0,#+15
+   \   00000088   ........           BL       LCD_WR_REG
+    181          //Power On sequence //
+    182                   LCD_WR_REG(0x10, 0x0000); // SAP, BT[3:0], AP, DSTB, SLP, STB
+   \   0000008C   0021               MOVS     R1,#+0
+   \   0000008E   1020               MOVS     R0,#+16
+   \   00000090   ........           BL       LCD_WR_REG
+    183                   LCD_WR_REG(0x11, 0x0000); // DC1[2:0], DC0[2:0], VC[2:0]
+   \   00000094   0021               MOVS     R1,#+0
+   \   00000096   1120               MOVS     R0,#+17
+   \   00000098   ........           BL       LCD_WR_REG
+    184                   LCD_WR_REG(0x12, 0x0000); // VREG1OUT voltage
+   \   0000009C   0021               MOVS     R1,#+0
+   \   0000009E   1220               MOVS     R0,#+18
+   \   000000A0   ........           BL       LCD_WR_REG
+    185                   LCD_WR_REG(0x13, 0x0000); // VDV[4:0] for VCOM amplitude
+   \   000000A4   0021               MOVS     R1,#+0
+   \   000000A6   1320               MOVS     R0,#+19
+   \   000000A8   ........           BL       LCD_WR_REG
+    186          //	 LCD_WR_REG(0x07, 0x0001); // 
+    187                	   
+    188                    Delay(5); // Dis-charge capacitor power voltage
+   \   000000AC   0520               MOVS     R0,#+5
+   \   000000AE   ........           BL       Delay
+    189                   
+    190                   LCD_WR_REG(0x10, 0x15b0); // SAP, BT[3:0], AP, DSTB, SLP, STB
+   \   000000B2   41F2B051           MOVW     R1,#+5552
+   \   000000B6   1020               MOVS     R0,#+16
+   \   000000B8   ........           BL       LCD_WR_REG
+    191                   LCD_WR_REG(0x11, 0x0227); // DC1[2:0], DC0[2:0], VC[2:0]
+   \   000000BC   40F22721           MOVW     R1,#+551
+   \   000000C0   1120               MOVS     R0,#+17
+   \   000000C2   ........           BL       LCD_WR_REG
+    192                   Delay(10); // Delay 50ms
+   \   000000C6   ........           BL       ?Subroutine3
+    193                  
+    194                   LCD_WR_REG(0x12, 0x0029); // Internal reference voltage= Vci;
+   \                     ??CrossCallReturnLabel_5:
+   \   000000CA   2921               MOVS     R1,#+41
+   \   000000CC   1220               MOVS     R0,#+18
+   \   000000CE   ........           BL       LCD_WR_REG
+    195                  Delay(10); // Delay 50ms
+   \   000000D2   ........           BL       ?Subroutine3
+    196                   LCD_WR_REG(0x13, 0x1700); // Set VDV[4:0] for VCOM amplitude
+   \                     ??CrossCallReturnLabel_4:
+   \   000000D6   4FF4B851           MOV      R1,#+5888
+   \   000000DA   1320               MOVS     R0,#+19
+   \   000000DC   ........           BL       LCD_WR_REG
+    197                   LCD_WR_REG(0x29, 0x002d); // Set VCM[5:0] for VCOMH
+   \   000000E0   2D21               MOVS     R1,#+45
+   \   000000E2   2920               MOVS     R0,#+41
+   \   000000E4   ........           BL       LCD_WR_REG
+    198                   LCD_WR_REG(0x2B, 0x000d); // Set Frame Rate
+   \   000000E8   0D21               MOVS     R1,#+13
+   \   000000EA   2B20               MOVS     R0,#+43
+   \   000000EC   ........           BL       LCD_WR_REG
+    199                   Delay(10); // Delay 50ms        
+   \   000000F0   ........           BL       ?Subroutine3
+    200          	/*  
+    201                   Delay(10); // Dis-charge capacitor power voltage
+    202                   
+    203                   LCD_WR_REG(0x10, 0x17b0); // SAP, BT[3:0], AP, DSTB, SLP, STB
+    204                   LCD_WR_REG(0x11, 0x0037); // DC1[2:0], DC0[2:0], VC[2:0]
+    205                   Delay(10); // Delay 50ms
+    206                  
+    207                   LCD_WR_REG(0x12, 0x013c); // Internal reference voltage= Vci;
+    208                  Delay(10); // Delay 50ms
+    209                  LCD_WR_REG(0x13, 0x1700); // Set VDV[4:0] for VCOM amplitude
+    210                   LCD_WR_REG(0x29, 0x0008); // Set VCM[5:0] for VCOMH
+    211                   LCD_WR_REG(0x2B, 0x000d); // Set Frame Rate
+    212                   Delay(10); // Delay 50ms
+    213                */   
+    214          #if   ID_AM==000         
+    215          	     LCD_WR_REG(0x0020,0x00ef);//GRAM水平起始位置
+    216          	     LCD_WR_REG(0x0021,0x013f);      
+    217          #elif ID_AM==001
+    218          	     LCD_WR_REG(0x0020,0x00ef);
+   \                     ??CrossCallReturnLabel_3:
+   \   000000F4   ........           BL       ?Subroutine8
+    219          	     LCD_WR_REG(0x0021,0x013f);      
+   \                     ??CrossCallReturnLabel_27:
+   \   000000F8   40F23F17           MOVW     R7,#+319
+   \   000000FC   3946               MOV      R1,R7
+   \   000000FE   2120               MOVS     R0,#+33
+   \   00000100   ........           BL       LCD_WR_REG
+    220          #elif ID_AM==010
+    221          	     LCD_WR_REG(0x0020,0x0000);
+    222          	     LCD_WR_REG(0x0021,0x013f);      
+    223          #elif ID_AM==011
+    224          	     LCD_WR_REG(0x0020,0x0000);
+    225          	     LCD_WR_REG(0x0021,0x013f);       
+    226          #elif ID_AM==100
+    227          	     LCD_WR_REG(0x0020,0x00ef);
+    228          	     LCD_WR_REG(0x0021,0x0000);      
+    229          #elif ID_AM==101  
+    230          	     LCD_WR_REG(0x0020,0x00ef);
+    231          	     LCD_WR_REG(0x0021,0x0000);      
+    232          #elif ID_AM==110
+    233          	     LCD_WR_REG(0x0020,0x0000);
+    234          	     LCD_WR_REG(0x0021,0x0000);      
+    235          #elif ID_AM==111
+    236          	     LCD_WR_REG(0x0020,0x0000);
+    237          	     LCD_WR_REG(0x0021,0x0000);         
+    238          #endif  
+    239          // ----------- Adjust the Gamma Curve ----------//
+    240          /**/    LCD_WR_REG(0x0030,0x0000);
+   \   00000104   0021               MOVS     R1,#+0
+   \   00000106   3020               MOVS     R0,#+48
+   \   00000108   ........           BL       LCD_WR_REG
+    241          	LCD_WR_REG(0x0031,0x0507);
+   \   0000010C   40F20751           MOVW     R1,#+1287
+   \   00000110   3120               MOVS     R0,#+49
+   \   00000112   ........           BL       LCD_WR_REG
+    242          	LCD_WR_REG(0x0032,0x0104);
+   \   00000116   4FF48271           MOV      R1,#+260
+   \   0000011A   3220               MOVS     R0,#+50
+   \   0000011C   ........           BL       LCD_WR_REG
+    243          	LCD_WR_REG(0x0035,0x0105);
+   \   00000120   40F20511           MOVW     R1,#+261
+   \   00000124   3520               MOVS     R0,#+53
+   \   00000126   ........           BL       LCD_WR_REG
+    244          	LCD_WR_REG(0x0036,0x0404);
+   \   0000012A   3146               MOV      R1,R6
+   \   0000012C   3620               MOVS     R0,#+54
+   \   0000012E   ........           BL       LCD_WR_REG
+    245          	LCD_WR_REG(0x0037,0x0603);
+   \   00000132   40F20361           MOVW     R1,#+1539
+   \   00000136   3720               MOVS     R0,#+55
+   \   00000138   ........           BL       LCD_WR_REG
+    246          	LCD_WR_REG(0x0038,0x0104);
+   \   0000013C   4FF48271           MOV      R1,#+260
+   \   00000140   3820               MOVS     R0,#+56
+   \   00000142   ........           BL       LCD_WR_REG
+    247          	LCD_WR_REG(0x0039,0x0107);
+   \   00000146   40F20711           MOVW     R1,#+263
+   \   0000014A   3920               MOVS     R0,#+57
+   \   0000014C   ........           BL       LCD_WR_REG
+    248          	LCD_WR_REG(0x003c,0x0501);
+   \   00000150   40F20151           MOVW     R1,#+1281
+   \   00000154   3C20               MOVS     R0,#+60
+   \   00000156   ........           BL       LCD_WR_REG
+    249          	LCD_WR_REG(0x003d,0x0404);
+   \   0000015A   3146               MOV      R1,R6
+   \   0000015C   3D20               MOVS     R0,#+61
+   \   0000015E   ........           BL       LCD_WR_REG
+    250           
+    251          	
+    252          
+    253          		 
+    254          //------------------ Set GRAM area ---------------//
+    255                   LCD_WR_REG(0x0050, 0x0000); // Horizontal GRAM Start Address
+   \   00000162   ........           BL       ?Subroutine5
+    256                   LCD_WR_REG(0x0051, 0x00EF); // Horizontal GRAM End Address
+   \                     ??CrossCallReturnLabel_15:
+   \   00000166   ........           BL       ?Subroutine6
+    257                   LCD_WR_REG(0x0052, 0x0000); // Vertical GRAM Start Address
+   \                     ??CrossCallReturnLabel_19:
+   \   0000016A   ........           BL       ?Subroutine7
+    258                   LCD_WR_REG(0x0053, 0x013F); // Vertical GRAM Start Address
+   \                     ??CrossCallReturnLabel_23:
+   \   0000016E   3946               MOV      R1,R7
+   \   00000170   5320               MOVS     R0,#+83
+   \   00000172   ........           BL       LCD_WR_REG
+    259                   LCD_WR_REG(0x0060, 0xa700); // Gate Scan Line
+   \   00000176   4FF42741           MOV      R1,#+42752
+   \   0000017A   6020               MOVS     R0,#+96
+   \   0000017C   ........           BL       LCD_WR_REG
+    260                   LCD_WR_REG(0x0061, 0x0001); // NDL,VLE, REV
+   \   00000180   0121               MOVS     R1,#+1
+   \   00000182   6120               MOVS     R0,#+97
+   \   00000184   ........           BL       LCD_WR_REG
+    261                   LCD_WR_REG(0x006A, 0x0000); // set scrolling line
+   \   00000188   0021               MOVS     R1,#+0
+   \   0000018A   6A20               MOVS     R0,#+106
+   \   0000018C   ........           BL       LCD_WR_REG
+    262          //-------------- Partial Display Control ---------//
+    263          
+    264          //-------------- Panel Control -------------------//
+    265                   LCD_WR_REG(0x90, 0x0010);
+   \   00000190   1021               MOVS     R1,#+16
+   \   00000192   9020               MOVS     R0,#+144
+   \   00000194   ........           BL       LCD_WR_REG
+    266                   LCD_WR_REG(0x92, 0x0000);
+   \   00000198   0021               MOVS     R1,#+0
+   \   0000019A   9220               MOVS     R0,#+146
+   \   0000019C   ........           BL       LCD_WR_REG
+    267                   LCD_WR_REG(0x93, 0x0003);
+   \   000001A0   0321               MOVS     R1,#+3
+   \   000001A2   9320               MOVS     R0,#+147
+   \   000001A4   ........           BL       LCD_WR_REG
+    268                   LCD_WR_REG(0x95, 0x0110);
+   \   000001A8   4FF48871           MOV      R1,#+272
+   \   000001AC   9520               MOVS     R0,#+149
+   \   000001AE   ........           BL       LCD_WR_REG
+    269                   LCD_WR_REG(0x97, 0x0000);
+   \   000001B2   0021               MOVS     R1,#+0
+   \   000001B4   9720               MOVS     R0,#+151
+   \   000001B6   ........           BL       LCD_WR_REG
+    270                   LCD_WR_REG(0x98, 0x0000);
+   \   000001BA   0021               MOVS     R1,#+0
+   \   000001BC   9820               MOVS     R0,#+152
+   \   000001BE   ........           BL       LCD_WR_REG
+    271          
+    272          		 
+    273          		// LCD_WR_REG(0x07, 0x0031); // 262K color and display ON   0133
+    274          	Delay(5); // Delay 5ms
+   \   000001C2   0520               MOVS     R0,#+5
+   \   000001C4   ........           BL       Delay
+    275          		 
+    276                   LCD_WR_REG(0x07, 0x0173); // 262K color and display ON   0133
+   \   000001C8   40F27311           MOVW     R1,#+371
+   \   000001CC   0720               MOVS     R0,#+7
+   \   000001CE   ........           BL       LCD_WR_REG
+    277                   Delay(1); // Delay 5ms
+   \   000001D2   0120               MOVS     R0,#+1
+   \   000001D4   ........           BL       Delay
+    278          	 LCD_Clear(000);
+   \   000001D8   0020               MOVS     R0,#+0
+   \   000001DA   ........           BL       LCD_Clear
+    279                  
+    280          	 Delay(2); // Delay 5ms
+   \   000001DE   0220               MOVS     R0,#+2
+   \   000001E0   ........           BL       Delay
+    281                   LCD_BL_H();
+   \   000001E4   2560               STR      R5,[R4, #+0]
+    282          }
+   \   000001E6   F1BD               POP      {R0,R4-R7,PC}    ;; return
+   \                     ??LCD_Init_0:
+   \   000001E8   10080140           DC32     0x40010810
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine8:
+   \   00000000   EF21               MOVS     R1,#+239
+   \                     ??Subroutine8_0:
+   \   00000002   2020               MOVS     R0,#+32
+   \   00000004   ....               B.N      LCD_WR_REG
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine3:
+   \   00000000   0A20               MOVS     R0,#+10
+   \   00000002   ........           B.W      Delay
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine7:
+   \   00000000   0021               MOVS     R1,#+0
+   \                     ??Subroutine7_0:
+   \   00000002   5220               MOVS     R0,#+82
+   \   00000004   ....               B.N      LCD_WR_REG
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine6:
+   \   00000000   EF21               MOVS     R1,#+239
+   \                     ??Subroutine6_0:
+   \   00000002   5120               MOVS     R0,#+81
+   \   00000004   ....               B.N      LCD_WR_REG
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine5:
+   \   00000000   0021               MOVS     R1,#+0
+   \                     ??Subroutine5_0:
+   \   00000002   5020               MOVS     R0,#+80
+   \   00000004   ....               B.N      LCD_WR_REG
+    283          
+    284          
+    285          /**********************************************
+    286          函数名：Lcd全屏擦除函数
+    287          功能：将Lcd整屏擦为指定颜色
+    288          入口参数：color 指定Lcd全屏颜色 RGB(5-6-5)
+    289          返回值：无
+    290          ***********************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+    291          void LCD_Clear(unsigned int Color)
+    292          {
+   \                     LCD_Clear:
+   \   00000000   38B5               PUSH     {R3-R5,LR}
+   \   00000002   0446               MOV      R4,R0
+    293            unsigned long index = 0;
+    294            
+    295          #if   ID_AM==000         
+    296          	     LCD_WR_REG(0x0020,0x00ef);//GRAM水平起始位置
+    297          	     LCD_WR_REG(0x0021,0x013f);      
+    298          #elif ID_AM==001
+    299          	     LCD_WR_REG(0x0020,0x00ef);
+   \   00000004   ........           BL       ?Subroutine8
+    300          	     LCD_WR_REG(0x0021,0x013f);      
+   \                     ??CrossCallReturnLabel_26:
+   \   00000008   40F23F15           MOVW     R5,#+319
+   \   0000000C   2946               MOV      R1,R5
+   \   0000000E   2120               MOVS     R0,#+33
+   \   00000010   ........           BL       LCD_WR_REG
+    301          #elif ID_AM==010
+    302          	     LCD_WR_REG(0x0020,0x0000);
+    303          	     LCD_WR_REG(0x0021,0x013f);      
+    304          #elif ID_AM==011
+    305          	     LCD_WR_REG(0x0020,0x0000);
+    306          	     LCD_WR_REG(0x0021,0x013f);       
+    307          #elif ID_AM==100
+    308          	     LCD_WR_REG(0x0020,0x00ef);
+    309          	     LCD_WR_REG(0x0021,0x0000);      
+    310          #elif ID_AM==101  
+    311          	     LCD_WR_REG(0x0020,0x00ef);
+    312          	     LCD_WR_REG(0x0021,0x0000);      
+    313          #elif ID_AM==110
+    314          	     LCD_WR_REG(0x0020,0x0000);
+    315          	     LCD_WR_REG(0x0021,0x0000);      
+    316          #elif ID_AM==111
+    317          	     LCD_WR_REG(0x0020,0x0000);
+    318          	     LCD_WR_REG(0x0021,0x0000);         
+    319          #endif     
+    320          
+    321            LCD_WR_REG(0x0050,0x00);//水平 GRAM起始位置
+   \   00000014   ........           BL       ?Subroutine5
+    322            LCD_WR_REG(0x0051,239);//水平GRAM终止位置
+   \                     ??CrossCallReturnLabel_14:
+   \   00000018   ........           BL       ?Subroutine6
+    323            LCD_WR_REG(0x0052,0x00);//垂直GRAM起始位置
+   \                     ??CrossCallReturnLabel_18:
+   \   0000001C   ........           BL       ?Subroutine7
+    324            LCD_WR_REG(0x0053,319);//垂直GRAM终止位置 
+   \                     ??CrossCallReturnLabel_22:
+   \   00000020   2946               MOV      R1,R5
+   \   00000022   5320               MOVS     R0,#+83
+   \   00000024   ........           BL       LCD_WR_REG
+    325            LCD_WR_REG16(0x0022);
+   \   00000028   ........           BL       ?Subroutine4
+    326            
+    327           // LCD_RD_H();
+    328          //  LCD_RS_H();
+    329            //LCD_CS_L();   
+    330            for(index = 0; index < 76800; index++)
+   \                     ??CrossCallReturnLabel_11:
+   \   0000002C   4FF49635           MOV      R5,#+76800
+    331            {
+    332             // LCD_WR_DATA16(Color);
+    333           
+    334              LCD_WR_DATA16(Color);
+   \                     ??LCD_Clear_0:
+   \   00000030   2046               MOV      R0,R4
+   \   00000032   ........           BL       LCD_WR_DATA16
+    335           
+    336             
+    337            } 
+   \   00000036   6D1E               SUBS     R5,R5,#+1
+   \   00000038   FAD1               BNE.N    ??LCD_Clear_0
+    338            // LCD_CS_H();
+    339          }
+   \   0000003A   31BD               POP      {R0,R4,R5,PC}    ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine4:
+   \   00000000   2220               MOVS     R0,#+34
+   \   00000002   ....               B.N      LCD_WR_REG16
+    340          
+
+   \                                 In section .text, align 2, keep-with-next
+    341          void LCD_write_english(unsigned char data,unsigned int color,unsigned int xcolor)//写字符
+    342          {
+   \                     LCD_write_english:
+   \   00000000   2DE9F843           PUSH     {R3-R9,LR}
+   \   00000004   8146               MOV      R9,R0
+   \   00000006   0C46               MOV      R4,R1
+   \   00000008   9046               MOV      R8,R2
+    343          
+    344            unsigned char avl,i,n;
+    345             LCD_WR_REG16(0x0022);  
+   \   0000000A   ........           BL       ?Subroutine4
+    346            for (i=0;i<16;i++)
+   \                     ??CrossCallReturnLabel_10:
+   \   0000000E   0027               MOVS     R7,#+0
+    347            { 
+    348                avl=english[data-32][i];
+   \                     ??LCD_write_english_0:
+   \   00000010   ....               LDR.N    R0,??DataTable6  ;; english
+   \   00000012   00EB0910           ADD      R0,R0,R9, LSL #+4
+   \   00000016   3818               ADDS     R0,R7,R0
+   \   00000018   A0F50070           SUB      R0,R0,#+512
+   \   0000001C   0578               LDRB     R5,[R0, #+0]
+    349          	  for (n=0;n<8;n++)
+   \   0000001E   0826               MOVS     R6,#+8
+    350          	   {
+    351          	     if(avl&0x80) LCD_WR_DATA16(color);
+   \                     ??LCD_write_english_1:
+   \   00000020   2806               LSLS     R0,R5,#+24
+   \   00000022   4CBF               ITE      MI 
+   \   00000024   2046               MOVMI    R0,R4
+   \   00000026   4046               MOVPL    R0,R8
+    352                       else LCD_WR_DATA16(xcolor);
+   \   00000028   ........           BL       LCD_WR_DATA16
+    353                     
+    354          	     avl<<=1;
+   \   0000002C   6806               LSLS     R0,R5,#+25
+   \   0000002E   050E               LSRS     R5,R0,#+24
+    355          	   }
+   \   00000030   761E               SUBS     R6,R6,#+1
+   \   00000032   F5D1               BNE.N    ??LCD_write_english_1
+    356          	}
+   \   00000034   7F1C               ADDS     R7,R7,#+1
+   \   00000036   102F               CMP      R7,#+16
+   \   00000038   EADB               BLT.N    ??LCD_write_english_0
+    357          }
+   \   0000003A   BDE8F183           POP      {R0,R4-R9,PC}    ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+    358          void LCD_write_english_string(unsigned int x,unsigned int y,unsigned char *s,unsigned int color,unsigned int xcolor)//英文字符串显示
+    359          {
+   \                     LCD_write_english_string:
+   \   00000000   2DE9F843           PUSH     {R3-R9,LR}
+   \   00000004   0546               MOV      R5,R0
+   \   00000006   8846               MOV      R8,R1
+   \   00000008   1446               MOV      R4,R2
+   \   0000000A   9946               MOV      R9,R3
+   \   0000000C   089E               LDR      R6,[SP, #+32]
+    360           unsigned int k=0;
+   \   0000000E   0027               MOVS     R7,#+0
+   \   00000010   0CE0               B.N      ??LCD_write_english_string_0
+    361           while (*s) 
+    362            {
+    363               Lcd_SetBox(y,x+k,15,8);
+   \                     ??LCD_write_english_string_1:
+   \   00000012   0823               MOVS     R3,#+8
+   \   00000014   0F22               MOVS     R2,#+15
+   \   00000016   7919               ADDS     R1,R7,R5
+   \   00000018   4046               MOV      R0,R8
+   \   0000001A   ........           BL       Lcd_SetBox
+    364               LCD_write_english( *s,color,xcolor);
+   \   0000001E   3246               MOV      R2,R6
+   \   00000020   4946               MOV      R1,R9
+   \   00000022   14F8010B           LDRB     R0,[R4], #+1
+   \   00000026   ........           BL       LCD_write_english
+    365               k=k+8;
+   \   0000002A   0837               ADDS     R7,R7,#+8
+    366               s++;
+    367            
+    368            }
+   \                     ??LCD_write_english_string_0:
+   \   0000002C   2078               LDRB     R0,[R4, #+0]
+   \   0000002E   0028               CMP      R0,#+0
+   \   00000030   EFD1               BNE.N    ??LCD_write_english_string_1
+    369          
+    370          }  
+   \   00000032   BDE8F183           POP      {R0,R4-R9,PC}    ;; return
+    371          
+
+   \                                 In section .text, align 2, keep-with-next
+    372          void LCD_write_SUM(unsigned int x,unsigned int y,unsigned char SUM,unsigned int color,unsigned int xcolor)//写数字
+    373          {
+   \                     LCD_write_SUM:
+   \   00000000   2DE9F843           PUSH     {R3-R9,LR}
+   \   00000004   0446               MOV      R4,R0
+   \   00000006   0846               MOV      R0,R1
+   \   00000008   9046               MOV      R8,R2
+   \   0000000A   9946               MOV      R9,R3
+   \   0000000C   089F               LDR      R7,[SP, #+32]
+    374          
+    375            unsigned char avl,i,n;
+    376             Lcd_SetBox(y,x,15,8);
+   \   0000000E   0823               MOVS     R3,#+8
+   \   00000010   0F22               MOVS     R2,#+15
+   \   00000012   2146               MOV      R1,R4
+   \   00000014   ........           BL       Lcd_SetBox
+    377             LCD_WR_REG16(0x0022);  
+   \   00000018   ........           BL       ?Subroutine4
+    378            for (i=0;i<16;i++)
+   \                     ??CrossCallReturnLabel_9:
+   \   0000001C   0024               MOVS     R4,#+0
+    379            { 
+    380                avl=english[SUM+16][15-i];
+   \                     ??LCD_write_SUM_0:
+   \   0000001E   6042               RSBS     R0,R4,#+0
+   \   00000020   ....               LDR.N    R1,??DataTable6  ;; english
+   \   00000022   01EB0811           ADD      R1,R1,R8, LSL #+4
+   \   00000026   4018               ADDS     R0,R0,R1
+   \   00000028   90F80F51           LDRB     R5,[R0, #+271]
+    381          	  for (n=0;n<8;n++)
+   \   0000002C   0826               MOVS     R6,#+8
+    382          	   {
+    383          	     if(avl&0x80) LCD_WR_DATA16(color);
+   \                     ??LCD_write_SUM_1:
+   \   0000002E   2806               LSLS     R0,R5,#+24
+   \   00000030   4CBF               ITE      MI 
+   \   00000032   4846               MOVMI    R0,R9
+   \   00000034   3846               MOVPL    R0,R7
+    384                       else LCD_WR_DATA16(xcolor);
+   \   00000036   ........           BL       LCD_WR_DATA16
+    385                     
+    386          	     avl<<=1;
+   \   0000003A   6806               LSLS     R0,R5,#+25
+   \   0000003C   050E               LSRS     R5,R0,#+24
+    387          	   }
+   \   0000003E   761E               SUBS     R6,R6,#+1
+   \   00000040   F5D1               BNE.N    ??LCD_write_SUM_1
+    388          	}
+   \   00000042   641C               ADDS     R4,R4,#+1
+   \   00000044   102C               CMP      R4,#+16
+   \   00000046   EADB               BLT.N    ??LCD_write_SUM_0
+    389          }
+   \   00000048   BDE8F183           POP      {R0,R4-R9,PC}    ;; return
+    390          /**********************************************
+    391          函数名：Lcd块选函数
+    392          功能：选定Lcd上指定的矩形区域
+    393          
+    394          注意：xStart和 yStart随着屏幕的旋转而改变，位置是矩形框的四个角
+    395          
+    396          入口参数：xStart x方向的起始点
+    397                    ySrart y方向的终止点
+    398                    xLong 要选定矩形的x方向长度
+    399                    yLong  要选定矩形的y方向长度
+    400          返回值：无
+    401          ***********************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+    402          void Lcd_SetBox(unsigned int xStart,unsigned int yStart,unsigned int xLong,unsigned int yLong)
+    403          {
+   \                     Lcd_SetBox:
+   \   00000000   F8B5               PUSH     {R3-R7,LR}
+   \   00000002   0446               MOV      R4,R0
+   \   00000004   0D46               MOV      R5,R1
+    404            
+    405          #if ID_AM==000    
+    406          	LCD_SetCursor(xStart+xLong-1,312-yStart+yLong-1);
+    407          
+    408          #elif ID_AM==001
+    409          	LCD_SetCursor(xStart+xLong-1,312-yStart+yLong-1);
+   \   00000006   1019               ADDS     R0,R2,R4
+   \   00000008   461E               SUBS     R6,R0,#+1
+   \   0000000A   581B               SUBS     R0,R3,R5
+   \   0000000C   00F23717           ADDW     R7,R0,#+311
+   \   00000010   3946               MOV      R1,R7
+   \   00000012   3046               MOV      R0,R6
+   \   00000014   ........           BL       LCD_SetCursor
+    410               
+    411          #elif ID_AM==010
+    412          	LCD_SetCursor(xStart,312-yStart+yLong-1);
+    413               
+    414          #elif ID_AM==011 
+    415          	LCD_SetCursor(xStart,312-yStart+yLong-1);
+    416               
+    417          #elif ID_AM==100
+    418          	LCD_SetCursor(xStart+xLong-1,312-yStart);     
+    419               
+    420          #elif ID_AM==101
+    421          	LCD_SetCursor(xStart+xLong-1,312-yStart);     
+    422               
+    423          #elif ID_AM==110
+    424          	LCD_SetCursor(xStart,312-yStart); 
+    425               
+    426          #elif ID_AM==111
+    427          	LCD_SetCursor(xStart,312-yStart);  
+    428               
+    429          #endif
+    430               
+    431          	LCD_WR_REG(0x0050,xStart);//水平 GRAM起始位置
+   \   00000018   2146               MOV      R1,R4
+   \   0000001A   ........           BL       ??Subroutine5_0
+    432          	LCD_WR_REG(0x0051,xStart+xLong-1);//水平GRAM终止位置
+   \                     ??CrossCallReturnLabel_12:
+   \   0000001E   3146               MOV      R1,R6
+   \   00000020   ........           BL       ??Subroutine6_0
+    433          	LCD_WR_REG(0x0052,312-yStart);//垂直GRAM起始位置
+   \                     ??CrossCallReturnLabel_16:
+   \   00000024   4FF49C70           MOV      R0,#+312
+   \   00000028   411B               SUBS     R1,R0,R5
+   \   0000002A   ........           BL       ??Subroutine7_0
+    434          	LCD_WR_REG(0x0053,312-yStart+yLong-1);//垂直GRAM终止位置 
+   \                     ??CrossCallReturnLabel_20:
+   \   0000002E   3946               MOV      R1,R7
+   \   00000030   5320               MOVS     R0,#+83
+   \   00000032   BDE8F440           POP      {R2,R4-R7,LR}
+   \   00000036   ....               B.N      LCD_WR_REG
+    435          }
+    436          
+    437          
+    438          /*************************************************
+    439          函数名：Lcd光标起点定位函数
+    440          功能：指定320240液晶上的一点作为写数据的起始点
+    441          入口参数：x 坐标 0~239
+    442                    y 坐标 0~319
+    443          返回值：无
+    444          *************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+    445          void LCD_SetCursor(unsigned int Xpos, unsigned int Ypos)
+    446          {
+   \                     LCD_SetCursor:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   0C46               MOV      R4,R1
+    447           // CLR_RS;
+    448            LCD_WR_REG(0x20, Xpos);
+   \   00000004   0146               MOV      R1,R0
+   \   00000006   ........           BL       ??Subroutine8_0
+    449            LCD_WR_REG(0x21, Ypos);
+   \                     ??CrossCallReturnLabel_25:
+   \   0000000A   2146               MOV      R1,R4
+   \   0000000C   2120               MOVS     R0,#+33
+   \   0000000E   BDE81040           POP      {R4,LR}
+   \   00000012   ....               B.N      LCD_WR_REG
+    450          }
+    451          
+    452          /*
+    453          void Test_tu(void)
+    454          {
+    455             unsigned int i;
+    456            // unsigned char  val;
+    457            LCD_WR_REG(0x0020,20);//Lcd光标GRAM水平起始位置
+    458            LCD_WR_REG(0x0021,105); //Lcd光标垂直GRAM起始位置     
+    459          
+    460            LCD_WR_REG(0x0050,20);//水平 GRAM起始位置
+    461            LCD_WR_REG(0x0051,207);//水平GRAM终止位置
+    462            LCD_WR_REG(0x0052,105);//垂直GRAM起始位置
+    463            LCD_WR_REG(0x0053,207);//垂直GRAM终止位置 
+    464            LCD_WR_REG16(0x0022);
+    465              	
+    466             LCD_RD_H();
+    467             LCD_RS_H();
+    468             LCD_CS_L(); 
+    469            for (i=0;i<21218;)
+    470            { 
+    471          
+    472               LCD_WR_L();
+    473          	 //LCD_WR_L();
+    474               DATA_LCD_PORT=gImage[i++];
+    475               LCD_WR_H();
+    476          
+    477               LCD_WR_L();
+    478          	 //LCD_WR_L();
+    479               DATA_LCD_PORT=gImage[i++];
+    480               LCD_WR_H(); 
+    481          
+    482          	}
+    483             LCD_CS_H();
+    484          }
+    485          */
+    486          
+    487          
+    488          
+    489          
+
+   \                                 In section .text, align 2, keep-with-next
+    490          void Test(void)
+    491          {       
+   \                     Test:
+   \   00000000   38B5               PUSH     {R3-R5,LR}
+    492                  unsigned long n,i;
+    493                 LCD_WR_REG(0x0020,0x0000);//GRAM水平起始位置
+   \   00000002   0021               MOVS     R1,#+0
+   \   00000004   ........           BL       ??Subroutine8_0
+    494                 LCD_WR_REG(0x0021,0x0000); 
+   \                     ??CrossCallReturnLabel_24:
+   \   00000008   0021               MOVS     R1,#+0
+   \   0000000A   2120               MOVS     R0,#+33
+   \   0000000C   ........           BL       LCD_WR_REG
+    495                  for(i=0;i<7;i++)
+   \   00000010   0024               MOVS     R4,#+0
+    496                    
+    497                  {       
+    498                  
+    499                      
+    500          	        LCD_WR_REG(0x0050,0x00);//水平 GRAM起始位置
+   \                     ??Test_0:
+   \   00000012   ........           BL       ?Subroutine5
+    501          	        LCD_WR_REG(0x0051,239);//水平GRAM终止位置
+   \                     ??CrossCallReturnLabel_13:
+   \   00000016   ........           BL       ?Subroutine6
+    502          	        LCD_WR_REG(0x0052,0x00);//垂直GRAM起始位置
+   \                     ??CrossCallReturnLabel_17:
+   \   0000001A   ........           BL       ?Subroutine7
+    503          	        LCD_WR_REG(0x0053,319);//垂直GRAM终止位置 
+   \                     ??CrossCallReturnLabel_21:
+   \   0000001E   40F23F11           MOVW     R1,#+319
+   \   00000022   5320               MOVS     R0,#+83
+   \   00000024   ........           BL       LCD_WR_REG
+    504                     
+    505                      LCD_WR_REG16(0x0022);       
+   \   00000028   ........           BL       ?Subroutine4
+    506                          for(n=0;n<76800;n++)
+   \                     ??CrossCallReturnLabel_8:
+   \   0000002C   4FF49635           MOV      R5,#+76800
+    507                          { 
+    508                            
+    509                            
+    510                            if(i==0)LCD_WR_DATA16(BLUE);   
+   \                     ??Test_1:
+   \   00000030   0CB9               CBNZ     R4,??Test_2
+   \   00000032   1F20               MOVS     R0,#+31
+   \   00000034   1CE0               B.N      ??Test_3
+    511                            if(i==1)LCD_WR_DATA16(RED); 
+   \                     ??Test_2:
+   \   00000036   012C               CMP      R4,#+1
+   \   00000038   02D1               BNE.N    ??Test_4
+   \   0000003A   4FF47840           MOV      R0,#+63488
+   \   0000003E   17E0               B.N      ??Test_3
+    512                            if(i==2)LCD_WR_DATA16(GREEN);
+   \                     ??Test_4:
+   \   00000040   022C               CMP      R4,#+2
+   \   00000042   02D1               BNE.N    ??Test_5
+   \   00000044   4FF4FC60           MOV      R0,#+2016
+   \   00000048   12E0               B.N      ??Test_3
+    513                            if(i==3)LCD_WR_DATA16(CYAN); 
+   \                     ??Test_5:
+   \   0000004A   032C               CMP      R4,#+3
+   \   0000004C   02D1               BNE.N    ??Test_6
+   \   0000004E   40F2FF70           MOVW     R0,#+2047
+   \   00000052   0DE0               B.N      ??Test_3
+    514                            if(i==4)LCD_WR_DATA16(MAGENTA); 
+   \                     ??Test_6:
+   \   00000054   042C               CMP      R4,#+4
+   \   00000056   02D1               BNE.N    ??Test_7
+   \   00000058   4FF61F00           MOVW     R0,#+63519
+   \   0000005C   08E0               B.N      ??Test_3
+    515                            if(i==5)LCD_WR_DATA16(YELLOW);
+   \                     ??Test_7:
+   \   0000005E   052C               CMP      R4,#+5
+   \   00000060   02D1               BNE.N    ??Test_8
+   \   00000062   4FF6E070           MOVW     R0,#+65504
+   \   00000066   03E0               B.N      ??Test_3
+    516          				  
+    517                            if(i==6)LCD_WR_DATA16(0x0102); 
+   \                     ??Test_8:
+   \   00000068   062C               CMP      R4,#+6
+   \   0000006A   03D1               BNE.N    ??Test_9
+   \   0000006C   4FF48170           MOV      R0,#+258
+   \                     ??Test_3:
+   \   00000070   ........           BL       LCD_WR_DATA16
+    518                          }    
+   \                     ??Test_9:
+   \   00000074   6D1E               SUBS     R5,R5,#+1
+   \   00000076   DBD1               BNE.N    ??Test_1
+    519                           delay_ms(100);                   
+                                  ^
+Warning[Pe223]: function "delay_ms" declared implicitly
+   \   00000078   6420               MOVS     R0,#+100
+   \   0000007A   ........           BL       delay_ms
+    520                  }       
+   \   0000007E   641C               ADDS     R4,R4,#+1
+   \   00000080   072C               CMP      R4,#+7
+   \   00000082   C6D3               BCC.N    ??Test_0
+    521          }
+   \   00000084   31BD               POP      {R0,R4,R5,PC}    ;; return
+    522          
+
+   \                                 In section .text, align 4, keep-with-next
+    523          void BMP_write_english(unsigned char x,unsigned char val_d,unsigned char color)//写字符
+    524          {
+   \                     BMP_write_english:
+   \   00000000   F0B5               PUSH     {R4-R7,LR}
+    525          
+    526            unsigned char avl,i,n;
+    527            for (i=0;i<16;i++)
+   \   00000002   0023               MOVS     R3,#+0
+   \   00000004   DFF840C0           LDR.W    R12,??BMP_write_english_0  ;; val_Speed
+    528            { 
+    529                avl=english[val_d-32][i];
+   \                     ??BMP_write_english_1:
+   \   00000008   ....               LDR.N    R4,??DataTable6  ;; english
+   \   0000000A   04EB0114           ADD      R4,R4,R1, LSL #+4
+   \   0000000E   1C19               ADDS     R4,R3,R4
+   \   00000010   A4F50074           SUB      R4,R4,#+512
+   \   00000014   2478               LDRB     R4,[R4, #+0]
+    530          	  for (n=0;n<8;n++)
+   \   00000016   0025               MOVS     R5,#+0
+    531          	   {
+    532          	     if(avl&0x1) val_Speed[15-i][(7-n)+x*8]=color;
+   \                     ??BMP_write_english_2:
+   \   00000018   C5EBC006           RSB      R6,R5,R0, LSL #+3
+   \   0000001C   6427               MOVS     R7,#+100
+   \   0000001E   5F43               MULS     R7,R7,R3
+   \   00000020   7F42               RSBS     R7,R7,#+0
+   \   00000022   6744               ADD      R7,R7,R12
+   \   00000024   F619               ADDS     R6,R6,R7
+   \   00000026   E707               LSLS     R7,R4,#+31
+   \   00000028   4EBF               ITEE     MI 
+   \   0000002A   86F8E325           STRBMI   R2,[R6, #+1507]
+   \   0000002E   0027               MOVPL    R7,#+0
+   \   00000030   86F8E375           STRBPL   R7,[R6, #+1507]
+    533                       else val_Speed[15-i][(7-n)+x*8]=0;
+    534                     
+    535          	     avl>>=1;
+   \   00000034   E405               LSLS     R4,R4,#+23
+   \   00000036   240E               LSRS     R4,R4,#+24
+    536          	   }
+   \   00000038   6D1C               ADDS     R5,R5,#+1
+   \   0000003A   082D               CMP      R5,#+8
+   \   0000003C   ECDB               BLT.N    ??BMP_write_english_2
+    537          	}
+   \   0000003E   5B1C               ADDS     R3,R3,#+1
+   \   00000040   102B               CMP      R3,#+16
+   \   00000042   E1DB               BLT.N    ??BMP_write_english_1
+    538          }
+   \   00000044   F0BD               POP      {R4-R7,PC}       ;; return
+   \   00000046   00BF               Nop      
+   \                     ??BMP_write_english_0:
+   \   00000048   ........           DC32     val_Speed
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \   00000000   000C0140           DC32     0x40010c00
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3:
+   \   00000000   0C0C0140           DC32     0x40010c0c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6:
+   \   00000000   ........           DC32     english
+
+   Maximum stack usage in bytes:
+
+     Function                 .cstack
+     --------                 -------
+     BMP_write_english            20
+     LCD_BL_GPIO_Config            8
+     LCD_Clear                    16
+     LCD_GPIO_INPUT                8
+     LCD_GPIO_OUTPUT               8
+     LCD_Init                     24
+     LCD_RD_DATA16                16
+     LCD_SetCursor                 8
+     LCD_Set_GPIO_Config          16
+     LCD_WR_DATA16                 8
+     LCD_WR_REG                    8
+     LCD_WR_REG16                  8
+     LCD_write_SUM                32
+     LCD_write_english            32
+     LCD_write_english_string     32
+     Lcd_SetBox                   24
+     Test                         16
+
+
+   Section sizes:
+
+     Function/Label           Bytes
+     --------------           -----
+     english                  1520
+     LCD_GPIO_OUTPUT            18
+     ?Subroutine0               10
+     ?Subroutine2               18
+     LCD_GPIO_INPUT             22
+     LCD_Set_GPIO_Config        56
+     LCD_BL_GPIO_Config         28
+     LCD_WR_DATA16              12
+     ?Subroutine1               48
+     LCD_WR_REG16               10
+     LCD_RD_DATA16              64
+     LCD_WR_REG                 16
+     LCD_Init                  492
+     ?Subroutine8                6
+     ?Subroutine3                6
+     ?Subroutine7                6
+     ?Subroutine6                6
+     ?Subroutine5                6
+     LCD_Clear                  60
+     ?Subroutine4                4
+     LCD_write_english          62
+     LCD_write_english_string   54
+     LCD_write_SUM              76
+     Lcd_SetBox                 56
+     LCD_SetCursor              20
+     Test                      134
+     BMP_write_english          76
+     ??DataTable1                4
+     ??DataTable3                4
+     ??DataTable6                4
+
+ 
+ 1 520 bytes in section .rodata
+ 1 378 bytes in section .text
+ 
+ 1 378 bytes of CODE  memory
+ 1 520 bytes of CONST memory
+
+Errors: none
+Warnings: 2

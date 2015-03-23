@@ -1,0 +1,351 @@
+###############################################################################
+#                                                                             #
+# IAR ANSI C/C++ Compiler V5.30.0.51174/W32 for ARM     24/May/2011  15:40:05 #
+# Copyright 1999-2009 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\253642xvvn\桌面\IAR\2.4G_send\ #
+#                    Demo\project\USART\test\app\uart.c                       #
+#    Command line =  "C:\Documents and Settings\253642xvvn\桌面\IAR\2.4G_send #
+#                    \Demo\project\USART\test\app\uart.c" -lC "C:\Documents   #
+#                    and Settings\253642xvvn\桌面\IAR\2.4G_send\Demo\project\ #
+#                    USART\test\Debug\List\" -lb "C:\Documents and            #
+#                    Settings\253642xvvn\桌面\IAR\2.4G_send\Demo\project\USAR #
+#                    T\test\Debug\List\" -o "C:\Documents and                 #
+#                    Settings\253642xvvn\桌面\IAR\2.4G_send\Demo\project\USAR #
+#                    T\test\Debug\Obj\" --no_cse --no_unroll --no_inline      #
+#                    --no_code_motion --no_tbaa --no_clustering               #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M3  #
+#                    -e --fpu=None --dlib_config "D:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 5.4\arm\INC\DLib_Config_Full. #
+#                    h" -I "C:\Documents and Settings\253642xvvn\桌面\IAR\2.4 #
+#                    G_send\Demo\project\USART\test\library\inc\" -I          #
+#                    "C:\Documents and Settings\253642xvvn\桌面\IAR\2.4G_send #
+#                    \Demo\project\USART\test\board\" -I "C:\Documents and    #
+#                    Settings\253642xvvn\桌面\IAR\2.4G_send\Demo\project\USAR #
+#                    T\test\app\" -I "D:\Program Files\IAR Systems\Embedded   #
+#                    Workbench 5.4\arm\INC\" -Ol                              #
+#    List file    =  C:\Documents and Settings\253642xvvn\桌面\IAR\2.4G_send\ #
+#                    Demo\project\USART\test\Debug\List\uart.lst              #
+#    Object file  =  C:\Documents and Settings\253642xvvn\桌面\IAR\2.4G_send\ #
+#                    Demo\project\USART\test\Debug\Obj\uart.o                 #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\253642xvvn\桌面\IAR\2.4G_send\Demo\project\USART\test\app\uart.c
+      1          
+      2          #include "stm32f10x_lib.h"
+      3          
+      4          
+      5          //RCC时钟配置
+
+   \                                 In section .text, align 2, keep-with-next
+      6          void RCC_cfg(){
+   \                     RCC_cfg:
+   \   00000000   80B5               PUSH     {R7,LR}
+      7                 //定义错误状态变量
+      8                 ErrorStatus HSEStartUpStatus;
+      9          	
+     10                 //将RCC寄存器重新设置为默认值
+     11                 RCC_DeInit();
+   \   00000002   ........           BL       RCC_DeInit
+     12          
+     13                 //打开外部高速时钟晶振
+     14                 RCC_HSEConfig(RCC_HSE_ON);
+   \   00000006   5FF48030           MOVS     R0,#+65536
+   \   0000000A   ........           BL       RCC_HSEConfig
+     15          
+     16                 //等待外部高速时钟晶振工作
+     17                 HSEStartUpStatus = RCC_WaitForHSEStartUp();
+   \   0000000E   ........           BL       RCC_WaitForHSEStartUp
+     18          
+     19                 if(HSEStartUpStatus == SUCCESS) {
+   \   00000012   C0B2               UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000014   0128               CMP      R0,#+1
+   \   00000016   24D1               BNE.N    ??RCC_cfg_0
+     20          
+     21                        //设置AHB时钟(HCLK)为系统时钟
+     22                        RCC_HCLKConfig(RCC_SYSCLK_Div1);
+   \   00000018   0020               MOVS     R0,#+0
+   \   0000001A   ........           BL       RCC_HCLKConfig
+     23          
+     24                        //设置高速AHB时钟(APB2)为HCLK时钟
+     25                        RCC_PCLK2Config(RCC_HCLK_Div1);
+   \   0000001E   0020               MOVS     R0,#+0
+   \   00000020   ........           BL       RCC_PCLK2Config
+     26          
+     27                        //设置低速AHB时钟(APB1)为HCLK的2分频
+     28                        RCC_PCLK1Config(RCC_HCLK_Div2);
+   \   00000024   4FF48060           MOV      R0,#+1024
+   \   00000028   ........           BL       RCC_PCLK1Config
+     29          
+     30                        //设置FLASH代码延时
+     31                        FLASH_SetLatency(FLASH_Latency_2);
+   \   0000002C   0220               MOVS     R0,#+2
+   \   0000002E   ........           BL       FLASH_SetLatency
+     32          
+     33                        //使能预取指缓存
+     34                        FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);
+   \   00000032   1020               MOVS     R0,#+16
+   \   00000034   ........           BL       FLASH_PrefetchBufferCmd
+     35          
+     36                        //设置PLL时钟，为HSE的9倍频 8MHz * 9 = 72MHz
+     37                        RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_9);
+   \   00000038   5FF4E011           MOVS     R1,#+1835008
+   \   0000003C   5FF48030           MOVS     R0,#+65536
+   \   00000040   ........           BL       RCC_PLLConfig
+     38          			
+     39                        //使能PLL
+     40                        RCC_PLLCmd(ENABLE);
+   \   00000044   0120               MOVS     R0,#+1
+   \   00000046   ........           BL       RCC_PLLCmd
+     41          
+     42                        //等待PLL准备就绪
+     43                        while(RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET);
+   \                     ??RCC_cfg_1:
+   \   0000004A   3920               MOVS     R0,#+57
+   \   0000004C   ........           BL       RCC_GetFlagStatus
+   \   00000050   0028               CMP      R0,#+0
+   \   00000052   FAD0               BEQ.N    ??RCC_cfg_1
+     44                        //设置PLL为系统时钟源
+     45                        RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
+   \   00000054   0220               MOVS     R0,#+2
+   \   00000056   ........           BL       RCC_SYSCLKConfig
+     46                        //判断PLL是否是系统时钟
+     47                        while(RCC_GetSYSCLKSource() != 0x08);
+   \                     ??RCC_cfg_2:
+   \   0000005A   ........           BL       RCC_GetSYSCLKSource
+   \   0000005E   0828               CMP      R0,#+8
+   \   00000060   FBD1               BNE.N    ??RCC_cfg_2
+     48                 }
+     49          
+     50                   //打开GPIO时钟，复用功能，串口1的时钟
+     51                   RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA  | RCC_APB2Periph_AFIO | RCC_APB2Periph_USART1, ENABLE);
+   \                     ??RCC_cfg_0:
+   \   00000062   0121               MOVS     R1,#+1
+   \   00000064   44F20500           MOVW     R0,#+16389
+   \   00000068   ........           BL       RCC_APB2PeriphClockCmd
+     52          
+     53          }
+   \   0000006C   01BD               POP      {R0,PC}          ;; return
+     54          
+     55          
+     56          
+     57          //IO口配置
+
+   \                                 In section .text, align 4, keep-with-next
+     58          void GPIO_cfg(){		
+   \                     GPIO_cfg:
+   \   00000000   80B5               PUSH     {R7,LR}
+     59                 GPIO_InitTypeDef GPIO_InitStructure;
+     60          
+     61          	   //打开GPIO时钟，复用功能，串口1的时钟
+     62                 RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA  | RCC_APB2Periph_AFIO , ENABLE);
+   \   00000002   0121               MOVS     R1,#+1
+   \   00000004   0520               MOVS     R0,#+5
+   \   00000006   ........           BL       RCC_APB2PeriphClockCmd
+     63          
+     64          	   //PA9作为USart1的TX端，打开复用，负责发送数据
+     65                 GPIO_StructInit(&GPIO_InitStructure);	
+   \   0000000A   00A8               ADD      R0,SP,#+0
+   \   0000000C   ........           BL       GPIO_StructInit
+     66                 GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
+   \   00000010   4FF40070           MOV      R0,#+512
+   \   00000014   ADF80000           STRH     R0,[SP, #+0]
+     67                 GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+   \   00000018   1820               MOVS     R0,#+24
+   \   0000001A   8DF80300           STRB     R0,[SP, #+3]
+     68                 GPIO_Init(GPIOA, &GPIO_InitStructure);
+   \   0000001E   00A9               ADD      R1,SP,#+0
+   \   00000020   0748               LDR.N    R0,??GPIO_cfg_0  ;; 0x40010800
+   \   00000022   ........           BL       GPIO_Init
+     69          		
+     70          
+     71          
+     72                 //PA10作为US1的RX端，负责接收数据
+     73                 GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
+   \   00000026   4FF48060           MOV      R0,#+1024
+   \   0000002A   ADF80000           STRH     R0,[SP, #+0]
+     74                 GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+   \   0000002E   0420               MOVS     R0,#+4
+   \   00000030   8DF80300           STRB     R0,[SP, #+3]
+     75                 GPIO_Init(GPIOA, &GPIO_InitStructure);
+   \   00000034   00A9               ADD      R1,SP,#+0
+   \   00000036   0248               LDR.N    R0,??GPIO_cfg_0  ;; 0x40010800
+   \   00000038   ........           BL       GPIO_Init
+     76          }
+   \   0000003C   01BD               POP      {R0,PC}          ;; return
+   \   0000003E   00BF               Nop      
+   \                     ??GPIO_cfg_0:
+   \   00000040   00080140           DC32     0x40010800
+     77          
+     78          
+     79          
+     80          //串口初始化
+
+   \                                 In section .text, align 4, keep-with-next
+     81          void USART_cfg() {
+   \                     USART_cfg:
+   \   00000000   00B5               PUSH     {LR}
+   \   00000002   87B0               SUB      SP,SP,#+28
+     82                 USART_InitTypeDef USART_InitStructure;
+     83          
+     84          	   //打开USART1时钟，串口1的时钟
+     85                 RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
+   \   00000004   0121               MOVS     R1,#+1
+   \   00000006   4FF48040           MOV      R0,#+16384
+   \   0000000A   ........           BL       RCC_APB2PeriphClockCmd
+     86                 //将结构体设置为缺省状态
+     87                 USART_StructInit(&USART_InitStructure);
+   \   0000000E   00A8               ADD      R0,SP,#+0
+   \   00000010   ........           BL       USART_StructInit
+     88          	
+     89              	//波特率设置为115200
+     90                 USART_InitStructure.USART_BaudRate = 115200;
+   \   00000014   5FF4E130           MOVS     R0,#+115200
+   \   00000018   0090               STR      R0,[SP, #+0]
+     91                 //一帧数据的宽度设置为8bits
+     92                 USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+   \   0000001A   0020               MOVS     R0,#+0
+   \   0000001C   ADF80400           STRH     R0,[SP, #+4]
+     93                 //在帧结尾传输1个停止位
+     94                 USART_InitStructure.USART_StopBits = USART_StopBits_1;
+   \   00000020   0020               MOVS     R0,#+0
+   \   00000022   ADF80600           STRH     R0,[SP, #+6]
+     95                 //奇偶失能模式，无奇偶校验
+     96                 USART_InitStructure.USART_Parity = USART_Parity_No;
+   \   00000026   0020               MOVS     R0,#+0
+   \   00000028   ADF80800           STRH     R0,[SP, #+8]
+     97                 //发送/接收使能
+     98                 USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+   \   0000002C   0C20               MOVS     R0,#+12
+   \   0000002E   ADF80C00           STRH     R0,[SP, #+12]
+     99                 //硬件流控制失能
+    100                 USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+   \   00000032   0020               MOVS     R0,#+0
+   \   00000034   ADF80A00           STRH     R0,[SP, #+10]
+    101                 //设置串口1
+    102                 USART_Init(USART1, &USART_InitStructure);
+   \   00000038   00A9               ADD      R1,SP,#+0
+   \   0000003A   0748               LDR.N    R0,??USART_cfg_0  ;; 0x40013800
+   \   0000003C   ........           BL       USART_Init
+    103          	
+    104                 //打开串口1的中断响应函数
+    105                 USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
+   \   00000040   0122               MOVS     R2,#+1
+   \   00000042   40F22551           MOVW     R1,#+1317
+   \   00000046   0448               LDR.N    R0,??USART_cfg_0  ;; 0x40013800
+   \   00000048   ........           BL       USART_ITConfig
+    106                 //打开串口1
+    107                 USART_Cmd(USART1, ENABLE);
+   \   0000004C   0121               MOVS     R1,#+1
+   \   0000004E   0248               LDR.N    R0,??USART_cfg_0  ;; 0x40013800
+   \   00000050   ........           BL       USART_Cmd
+    108          }
+   \   00000054   07B0               ADD      SP,SP,#+28
+   \   00000056   00BD               POP      {PC}             ;; return
+   \                     ??USART_cfg_0:
+   \   00000058   00380140           DC32     0x40013800
+    109          
+    110          
+    111          
+    112          //配置中断
+    113          
+
+   \                                 In section .text, align 2, keep-with-next
+    114          void NVIC_cfg() {
+   \                     NVIC_cfg:
+   \   00000000   80B5               PUSH     {R7,LR}
+    115          // NVIC init
+    116          #ifdef  vec_tab_ram
+    117            /* Set the Vector Table base location at 0x20000000 */
+    118            NVIC_SetVectorTable(NVIC_VectTab_RAM, 0x0);
+    119          #else  /* VECT_TAB_FLASH  */
+    120            /* Set the Vector Table base location at 0x08000000 */
+    121            NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0x0);
+   \   00000002   0021               MOVS     R1,#+0
+   \   00000004   5FF00060           MOVS     R0,#+134217728
+   \   00000008   ........           BL       NVIC_SetVectorTable
+    122          #endif
+    123          
+    124                  NVIC_InitTypeDef NVIC_InitStructure;
+    125          		
+    126                  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);   //选择中断分组2
+   \   0000000C   4FF4A060           MOV      R0,#+1280
+   \   00000010   ........           BL       NVIC_PriorityGroupConfig
+    127          
+    128                  NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQChannel;    //选择串口1中断
+   \   00000014   2520               MOVS     R0,#+37
+   \   00000016   8DF80000           STRB     R0,[SP, #+0]
+    129                  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;  //抢占式中断优先级设置为0
+   \   0000001A   0020               MOVS     R0,#+0
+   \   0000001C   8DF80100           STRB     R0,[SP, #+1]
+    130                  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;         //响应式中断优先级设置为0
+   \   00000020   0020               MOVS     R0,#+0
+   \   00000022   8DF80200           STRB     R0,[SP, #+2]
+    131                  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;           //使能中断
+   \   00000026   0120               MOVS     R0,#+1
+   \   00000028   8DF80300           STRB     R0,[SP, #+3]
+    132                  NVIC_Init(&NVIC_InitStructure);
+   \   0000002C   00A8               ADD      R0,SP,#+0
+   \   0000002E   ........           BL       NVIC_Init
+    133          
+    134          }
+   \   00000032   01BD               POP      {R0,PC}          ;; return
+    135          
+    136          
+    137          
+    138          
+    139          
+    140          //然后在stm32f10x_it.c文件中找到相应的中断处理函数，并填入一下内容。
+    141          //注意在stm32f10x_it.c中，要声明一下外部变量RX_status
+    142          
+    143          
+    144          
+    145          
+    146          /*
+    147          void USART1_IRQHandler(void) {	
+    148                 GPIO_SetBits(GPIOB, GPIO_Pin_5);
+    149                 //确认是否接收到数据
+    150                 RX_status = USART_GetFlagStatus(USART1, USART_FLAG_RXNE);
+    151                 //接收到数据
+    152                 if(RX_status == SET) {
+    153                        //将数据回送至超级终端
+    154                        USART_SendData(USART1, USART_ReceiveData(USART1));
+    155                        //等待数据发送完毕
+    156                        while(USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET);
+    157                        GPIO_ResetBits(GPIOB, GPIO_Pin_5);
+    158                 }
+    159          }
+    160          
+    161          
+    162          */
+
+   Maximum stack usage in bytes:
+
+     Function  .cstack
+     --------  -------
+     GPIO_cfg       8
+     NVIC_cfg       8
+     RCC_cfg        8
+     USART_cfg     32
+
+
+   Section sizes:
+
+     Function/Label Bytes
+     -------------- -----
+     RCC_cfg         110
+     GPIO_cfg         68
+     USART_cfg        92
+     NVIC_cfg         52
+
+ 
+ 322 bytes in section .text
+ 
+ 322 bytes of CODE memory
+
+Errors: none
+Warnings: none

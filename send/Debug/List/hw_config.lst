@@ -1,0 +1,1044 @@
+###############################################################################
+#                                                                             #
+# IAR ANSI C/C++ Compiler V5.30.0.51174/W32 for ARM     28/May/2011  10:37:11 #
+# Copyright 1999-2009 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Documents and Settings\253642xvvn\桌面\nrf905se\bigbo #
+#                    ard\send6\app\hw_config.c                                #
+#    Command line =  "C:\Documents and Settings\253642xvvn\桌面\nrf905se\bigb #
+#                    oard\send6\app\hw_config.c" -lC "C:\Documents and        #
+#                    Settings\253642xvvn\桌面\nrf905se\bigboard\send6\Debug\L #
+#                    ist\" -lb "C:\Documents and                              #
+#                    Settings\253642xvvn\桌面\nrf905se\bigboard\send6\Debug\L #
+#                    ist\" -o "C:\Documents and Settings\253642xvvn\桌面\nrf9 #
+#                    05se\bigboard\send6\Debug\Obj\" --no_cse --no_unroll     #
+#                    --no_inline --no_code_motion --no_tbaa --no_clustering   #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M3  #
+#                    -e --fpu=None --dlib_config "D:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 5.4\arm\INC\DLib_Config_Full. #
+#                    h" -I "C:\Documents and Settings\253642xvvn\桌面\nrf905s #
+#                    e\bigboard\send6\library\inc\" -I "C:\Documents and      #
+#                    Settings\253642xvvn\桌面\nrf905se\bigboard\send6\board\" #
+#                     -I "C:\Documents and Settings\253642xvvn\桌面\nrf905se\ #
+#                    bigboard\send6\app\" -I "D:\Program Files\IAR            #
+#                    Systems\Embedded Workbench 5.4\arm\INC\" -Ol             #
+#    List file    =  C:\Documents and Settings\253642xvvn\桌面\nrf905se\bigbo #
+#                    ard\send6\Debug\List\hw_config.lst                       #
+#    Object file  =  C:\Documents and Settings\253642xvvn\桌面\nrf905se\bigbo #
+#                    ard\send6\Debug\Obj\hw_config.o                          #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Documents and Settings\253642xvvn\桌面\nrf905se\bigboard\send6\app\hw_config.c
+      1          /******************** (C) COPYRIGHT 2011 SDUEM ********************
+      2          * File Name          : hw_config.c
+      3          * Author             : wzb@SDUEM
+      4          * Version            : V2.2.0
+      5          * Date               : 05/13/2011
+      6          * Description        : Hardware Configuration & Setup
+      7          ********************************************************************************
+      8          *
+      9          *******************************************************************************/
+     10          
+     11          
+     12          /* Includes ------------------------------------------------------------------*/
+     13          #include "hw_config.h"
+     14          
+     15          /* Private typedef -----------------------------------------------------------*/
+     16          /* Private define ------------------------------------------------------------*/
+     17          /* Private macro -------------------------------------------------------------*/
+     18          /* Private variables ---------------------------------------------------------*/
+     19          
+     20          
+     21          /* Extern variables ----------------------------------------------------------*/
+     22          
+     23          /* Exported variables ----------------------------------------------------------*/
+
+   \                                 In section .bss, align 4
+     24          u32 TimingDelay;
+   \                     TimingDelay:
+   \   00000000                      DS8 4
+     25          
+     26          /* Private function prototypes -----------------------------------------------*/
+     27          static void SysTick_Configuration(void);
+     28          
+     29          static void USART1_GPIO_Configuration();
+     30          static void USART1_NVIC_Configuration();
+     31          static void USART1_Configuration();
+     32          
+     33          static void SPI1_GPIO_Configuration();
+     34          static void SPI1_NVIC_Configuration();
+     35          static void SPI1_Configuration();
+     36          
+     37          
+     38          /* ----------------------Exported functions ----------------------------------*/
+     39          
+     40          
+     41          /* ---------------RCC Configuration fuction -----------------------------------*/
+     42          /*******************************************************************************
+     43          * Function Name  : RCC_Configuration
+     44          * Description    : Configures the  system clocks
+     45          * Input          : None.
+     46          * Return         : None.
+     47          *******************************************************************************/
+     48          
+     49          //RCC时钟配置 for the whole system
+
+   \                                 In section .text, align 2, keep-with-next
+     50           void RCC_Configuration(void) {
+   \                     RCC_Configuration:
+   \   00000000   80B5               PUSH     {R7,LR}
+     51                 //定义错误状态变量
+     52                 ErrorStatus HSEStartUpStatus;
+     53          	
+     54                 //将RCC寄存器重新设置为默认值
+     55                 RCC_DeInit();
+   \   00000002   ........           BL       RCC_DeInit
+     56          
+     57                 //打开外部高速时钟晶振
+     58                 RCC_HSEConfig(RCC_HSE_ON);
+   \   00000006   5FF48030           MOVS     R0,#+65536
+   \   0000000A   ........           BL       RCC_HSEConfig
+     59          
+     60                 //等待外部高速时钟晶振工作
+     61                 HSEStartUpStatus = RCC_WaitForHSEStartUp();
+   \   0000000E   ........           BL       RCC_WaitForHSEStartUp
+     62          
+     63                 if(HSEStartUpStatus == SUCCESS) {
+   \   00000012   C0B2               UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000014   0128               CMP      R0,#+1
+   \   00000016   24D1               BNE.N    ??RCC_Configuration_0
+     64          
+     65                        //设置AHB时钟(HCLK)为系统时钟
+     66                        RCC_HCLKConfig(RCC_SYSCLK_Div1);
+   \   00000018   0020               MOVS     R0,#+0
+   \   0000001A   ........           BL       RCC_HCLKConfig
+     67          
+     68                        //设置高速AHB时钟(APB2)为HCLK时钟
+     69                        RCC_PCLK2Config(RCC_HCLK_Div1);
+   \   0000001E   0020               MOVS     R0,#+0
+   \   00000020   ........           BL       RCC_PCLK2Config
+     70          
+     71                        //设置低速AHB时钟(APB1)为HCLK的2分频
+     72                        RCC_PCLK1Config(RCC_HCLK_Div2);
+   \   00000024   4FF48060           MOV      R0,#+1024
+   \   00000028   ........           BL       RCC_PCLK1Config
+     73          
+     74                        //设置FLASH代码延时
+     75                        FLASH_SetLatency(FLASH_Latency_2);
+   \   0000002C   0220               MOVS     R0,#+2
+   \   0000002E   ........           BL       FLASH_SetLatency
+     76          
+     77                        //使能预取指缓存
+     78                        FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);
+   \   00000032   1020               MOVS     R0,#+16
+   \   00000034   ........           BL       FLASH_PrefetchBufferCmd
+     79          
+     80                        //设置PLL时钟，为HSE的9倍频 8MHz * 9 = 72MHz
+     81                        RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_9);
+   \   00000038   5FF4E011           MOVS     R1,#+1835008
+   \   0000003C   5FF48030           MOVS     R0,#+65536
+   \   00000040   ........           BL       RCC_PLLConfig
+     82          			
+     83                        //使能PLL
+     84                        RCC_PLLCmd(ENABLE);
+   \   00000044   0120               MOVS     R0,#+1
+   \   00000046   ........           BL       RCC_PLLCmd
+     85          
+     86                        //等待PLL准备就绪
+     87                        while(RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET);
+   \                     ??RCC_Configuration_1:
+   \   0000004A   3920               MOVS     R0,#+57
+   \   0000004C   ........           BL       RCC_GetFlagStatus
+   \   00000050   0028               CMP      R0,#+0
+   \   00000052   FAD0               BEQ.N    ??RCC_Configuration_1
+     88                        //设置PLL为系统时钟源
+     89                        RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
+   \   00000054   0220               MOVS     R0,#+2
+   \   00000056   ........           BL       RCC_SYSCLKConfig
+     90          
+     91                        //判断PLL是否是系统时钟
+     92                        while(RCC_GetSYSCLKSource() != 0x08);
+   \                     ??RCC_Configuration_2:
+   \   0000005A   ........           BL       RCC_GetSYSCLKSource
+   \   0000005E   0828               CMP      R0,#+8
+   \   00000060   FBD1               BNE.N    ??RCC_Configuration_2
+     93                 }
+     94          
+     95                   //打开GPIOA AFIO USART1 SPI1 时钟，复用功能，串口1的时钟
+     96                   RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA  | RCC_APB2Periph_GPIOB | RCC_APB2Periph_AFIO | RCC_APB2Periph_USART1 | RCC_APB2Periph_SPI1, ENABLE);
+   \                     ??RCC_Configuration_0:
+   \   00000062   0121               MOVS     R1,#+1
+   \   00000064   45F20D00           MOVW     R0,#+20493
+   \   00000068   ........           BL       RCC_APB2PeriphClockCmd
+     97          
+     98          }
+   \   0000006C   01BD               POP      {R0,PC}          ;; return
+     99          
+    100          /*******************************************************************************
+    101          * Function Name  : RCC_Configuration_1
+    102          * Description    : Configures the  system clocks
+    103          * Input          : None.
+    104          * Return         : None.
+    105          *******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+    106          void RCC_Configuration_1(void)
+    107          {
+   \                     RCC_Configuration_1:
+   \   00000000   80B5               PUSH     {R7,LR}
+    108                ErrorStatus HSEStartUpStatus;
+    109                /* RCC system reset(for debug purpose) */
+    110                RCC_DeInit();	   //将RCC寄存器设备缺省值
+   \   00000002   ........           BL       RCC_DeInit
+    111          
+    112                /* Enable HSE */
+    113                RCC_HSEConfig(RCC_HSE_ON);  //外部高速振荡器HSE 开启
+   \   00000006   5FF48030           MOVS     R0,#+65536
+   \   0000000A   ........           BL       RCC_HSEConfig
+    114          
+    115                /* Wait till HSE is ready */
+    116                HSEStartUpStatus = RCC_WaitForHSEStartUp();	//等待HSE启动
+   \   0000000E   ........           BL       RCC_WaitForHSEStartUp
+    117          
+    118                if (HSEStartUpStatus == SUCCESS)	  //如果HSE晶振稳定且就绪
+   \   00000012   C0B2               UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000014   0128               CMP      R0,#+1
+   \   00000016   28D1               BNE.N    ??RCC_Configuration_1_0
+    119                {
+    120                    /* Enable Prefetch Buffer */
+    121                    FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);  //预取指缓存使能
+   \   00000018   1020               MOVS     R0,#+16
+   \   0000001A   ........           BL       FLASH_PrefetchBufferCmd
+    122                    /* Flash 2 wait state */
+    123                    FLASH_SetLatency(FLASH_Latency_2);	//设置FLASH存储器延时时钟周期数为2延时周期
+   \   0000001E   0220               MOVS     R0,#+2
+   \   00000020   ........           BL       FLASH_SetLatency
+    124                    /* HCLK = SYSCLK */
+    125                    RCC_HCLKConfig(RCC_SYSCLK_Div1);  //设置AHB时钟＝系统时钟
+   \   00000024   0020               MOVS     R0,#+0
+   \   00000026   ........           BL       RCC_HCLKConfig
+    126                    /* PCLK2 = HCLK */
+    127                    RCC_PCLK2Config(RCC_HCLK_Div1);	 //设置APB2时钟 ＝ HCLK
+   \   0000002A   0020               MOVS     R0,#+0
+   \   0000002C   ........           BL       RCC_PCLK2Config
+    128                    /* PCLK1 = HCLK/2 */
+    129                    RCC_PCLK1Config(RCC_HCLK_Div2);	   //设置APB1时钟 ＝ HCLK/2
+   \   00000030   4FF48060           MOV      R0,#+1024
+   \   00000034   ........           BL       RCC_PCLK1Config
+    130                    /* ADCCLK = PCLK2/6 */
+    131                    RCC_ADCCLKConfig(RCC_PCLK2_Div6);	//设置ADC时钟＝PCLK/6
+   \   00000038   4FF40040           MOV      R0,#+32768
+   \   0000003C   ........           BL       RCC_ADCCLKConfig
+    132          
+    133                    //PLL设置
+    134                    //PLL输入时钟＝HSE时钟频率   输出 9倍频（HSE×9）
+    135                    RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_9);     //72M
+   \   00000040   5FF4E011           MOVS     R1,#+1835008
+   \   00000044   5FF48030           MOVS     R0,#+65536
+   \   00000048   ........           BL       RCC_PLLConfig
+    136                    /* Enable PLL */
+    137                    RCC_PLLCmd(ENABLE);
+   \   0000004C   0120               MOVS     R0,#+1
+   \   0000004E   ........           BL       RCC_PLLCmd
+    138          
+    139                    /* Wait till PLL is ready */
+    140                    while (RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET);	 //等待PLL就绪
+   \                     ??RCC_Configuration_1_1:
+   \   00000052   3920               MOVS     R0,#+57
+   \   00000054   ........           BL       RCC_GetFlagStatus
+   \   00000058   0028               CMP      R0,#+0
+   \   0000005A   FAD0               BEQ.N    ??RCC_Configuration_1_1
+    141          
+    142                    /* Select PLL as system clock source */
+    143                    RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);	//选择PLL作为系统时钟
+   \   0000005C   0220               MOVS     R0,#+2
+   \   0000005E   ........           BL       RCC_SYSCLKConfig
+    144          
+    145                    /* Wait till PLL is used as system clock source */
+    146                        //等待设置系统时钟为PLL成功
+    147                        //返回值为	00：HSI  04：HSE  08：PLL
+    148                    while (RCC_GetSYSCLKSource() != 0x08);
+   \                     ??RCC_Configuration_1_2:
+   \   00000062   ........           BL       RCC_GetSYSCLKSource
+   \   00000066   0828               CMP      R0,#+8
+   \   00000068   FBD1               BNE.N    ??RCC_Configuration_1_2
+    149                }
+    150          
+    151                  RCC_APB2PeriphClockCmd( RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB |RCC_APB2Periph_AFIO | RCC_APB2Periph_SPI1 | RCC_APB2Periph_USART1  , ENABLE);
+   \                     ??RCC_Configuration_1_0:
+   \   0000006A   0121               MOVS     R1,#+1
+   \   0000006C   45F20D00           MOVW     R0,#+20493
+   \   00000070   ........           BL       RCC_APB2PeriphClockCmd
+    152                  SysTick_Configuration();
+   \   00000074   ........           BL       SysTick_Configuration
+    153          }
+   \   00000078   01BD               POP      {R0,PC}          ;; return
+    154          
+    155          
+    156          /*******************************************************************************
+    157          * Function Name  : SysTick_Configuration
+    158          * Description    : Configure a SysTick Base time to 10 ms.
+    159          * Input          : None
+    160          * Output         : None
+    161          * Return         : None
+    162          *******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+    163          static  void SysTick_Configuration(void)
+    164          {
+   \                     SysTick_Configuration:
+   \   00000000   80B5               PUSH     {R7,LR}
+    165            /* Configure HCLK clock as SysTick clock source */
+    166            SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK);	//设置SysTick时钟为AHB时钟
+   \   00000002   0420               MOVS     R0,#+4
+   \   00000004   ........           BL       SysTick_CLKSourceConfig
+    167          
+    168            /* SysTick interrupt each 72Hz with HCLK equal to 72MHz */
+    169            SysTick_SetReload(72);   //设置重装值
+   \   00000008   4820               MOVS     R0,#+72
+   \   0000000A   ........           BL       SysTick_SetReload
+    170          
+    171            /* Enable the SysTick Interrupt */
+    172            SysTick_ITConfig(ENABLE);
+   \   0000000E   0120               MOVS     R0,#+1
+   \   00000010   ........           BL       SysTick_ITConfig
+    173          }
+   \   00000014   01BD               POP      {R0,PC}          ;; return
+    174          
+    175          /*******************************************************************************
+    176          * Function Name  : delay_us
+    177          * Description    : Inserts a delay time.
+    178          * Input          : nCount: specifies the delay time length (time base 1 us).
+    179          * Output         : None
+    180          * Return         : None
+    181          *******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+    182          void delay_us(u32 nCount)
+    183          {
+   \                     delay_us:
+   \   00000000   80B5               PUSH     {R7,LR}
+    184             TimingDelay = nCount;
+   \   00000002   ....               LDR.N    R1,??DataTable4  ;; TimingDelay
+   \   00000004   0860               STR      R0,[R1, #+0]
+    185          
+    186            /* Enable the SysTick Counter */
+    187            SysTick_CounterCmd(SysTick_Counter_Enable);
+   \   00000006   0120               MOVS     R0,#+1
+   \   00000008   ........           BL       SysTick_CounterCmd
+    188          
+    189            while(TimingDelay != 0);
+   \                     ??delay_us_0:
+   \   0000000C   ....               LDR.N    R0,??DataTable4  ;; TimingDelay
+   \   0000000E   0068               LDR      R0,[R0, #+0]
+   \   00000010   0028               CMP      R0,#+0
+   \   00000012   FBD1               BNE.N    ??delay_us_0
+    190          
+    191            /* Disable the SysTick Counter */
+    192            SysTick_CounterCmd(SysTick_Counter_Disable);
+   \   00000014   7FF00100           MVNS     R0,#+1
+   \   00000018   ........           BL       SysTick_CounterCmd
+    193          
+    194            /* Clear the SysTick Counter */
+    195            SysTick_CounterCmd(SysTick_Counter_Clear);
+   \   0000001C   0020               MOVS     R0,#+0
+   \   0000001E   ........           BL       SysTick_CounterCmd
+    196          }
+   \   00000022   01BD               POP      {R0,PC}          ;; return
+    197          
+    198          /*******************************************************************************
+    199          * Function Name  : Decrement_TimingDelay
+    200          * Description    : Decrements the TimingDelay variable.
+    201          * Input          : None
+    202          * Output         : TimingDelay
+    203          * Return         : None
+    204          *******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+    205          void Decrement_TimingDelay(void)
+    206          {
+    207          	if (TimingDelay != 0x00)
+   \                     Decrement_TimingDelay:
+   \   00000000   ....               LDR.N    R0,??DataTable4  ;; TimingDelay
+   \   00000002   0068               LDR      R0,[R0, #+0]
+   \   00000004   0028               CMP      R0,#+0
+   \   00000006   04D0               BEQ.N    ??Decrement_TimingDelay_0
+    208          	{
+    209          		TimingDelay--;
+   \   00000008   ....               LDR.N    R0,??DataTable4  ;; TimingDelay
+   \   0000000A   0068               LDR      R0,[R0, #+0]
+   \   0000000C   401E               SUBS     R0,R0,#+1
+   \   0000000E   ....               LDR.N    R1,??DataTable4  ;; TimingDelay
+   \   00000010   0860               STR      R0,[R1, #+0]
+    210          	}
+    211          }
+   \                     ??Decrement_TimingDelay_0:
+   \   00000012   7047               BX       LR               ;; return
+    212          
+    213          /* --------------- End of RCC Configuration fuction --------------------------*/
+    214          
+    215          
+    216          /* ---------------USART Configuration fuction --------------------------------*/
+    217          /*******************************************************************************
+    218          * Function Name  : USART_Configuration
+    219          * Description    : Configures the  system clocks
+    220          * Input          : None.
+    221          * Return         : None.
+    222          *******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+    223          void USART_Configuration(void) {
+   \                     USART_Configuration:
+   \   00000000   80B5               PUSH     {R7,LR}
+    224          	  USART1_GPIO_Configuration();
+   \   00000002   ........           BL       USART1_GPIO_Configuration
+    225          	  USART1_NVIC_Configuration();
+   \   00000006   ........           BL       USART1_NVIC_Configuration
+    226          	  USART1_Configuration();
+   \   0000000A   ........           BL       USART1_Configuration
+    227          }
+   \   0000000E   01BD               POP      {R0,PC}          ;; return
+    228          
+    229          /* ---------------SPI Configuration fuction ----------------------------------*/
+    230          /*******************************************************************************
+    231          * Function Name  : SPI_Configuration
+    232          * Description    : Configures the  system clocks
+    233          * Input          : None.
+    234          * Return         : None.
+    235          *******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+    236          void SPI_Configuration(void) {
+   \                     SPI_Configuration:
+   \   00000000   80B5               PUSH     {R7,LR}
+    237              SPI1_GPIO_Configuration();
+   \   00000002   ........           BL       SPI1_GPIO_Configuration
+    238              SPI1_NVIC_Configuration();
+   \   00000006   ........           BL       SPI1_NVIC_Configuration
+    239              SPI1_Configuration();
+   \   0000000A   ........           BL       SPI1_Configuration
+    240          }
+   \   0000000E   01BD               POP      {R0,PC}          ;; return
+    241          
+    242          /* ---------------System initial Configuration fuction ------------------------------------------*/
+    243          /*******************************************************************************
+    244          * Function Name  : System_Init
+    245          * Description    : Configures the  system ;
+    246          * Input          : None.
+    247          * Return         : None.
+    248          *******************************************************************************/
+
+   \                                 In section .text, align 2, keep-with-next
+    249          void System_Init(void)
+    250          {
+   \                     System_Init:
+   \   00000000   80B5               PUSH     {R7,LR}
+    251                /* RCC configuration */
+    252            	RCC_Configuration();		 /*****与时钟相关的寄存器配制*****/
+   \   00000002   ........           BL       RCC_Configuration
+    253                  USART_Configuration();
+   \   00000006   ........           BL       USART_Configuration
+    254             	SPI_Configuration();
+   \   0000000A   ........           BL       SPI_Configuration
+    255          }
+   \   0000000E   01BD               POP      {R0,PC}          ;; return
+    256          /* -------------------End of Exported functions ----------------------------------*/
+    257          
+    258          
+    259          
+    260          
+    261          /* --------------private Configuration fuction for USART ------------------------------------------*/
+    262          
+    263          /*******************************************************************************
+    264          * Function Name  : USART1_GPIO_Configuration
+    265          * Description    : Configures the  USART1 GPIO Port and Pin
+    266          * Input          : None.
+    267          * Return         : None.
+    268          *******************************************************************************/
+    269          //GPIO口配置 for USART1
+
+   \                                 In section .text, align 2, keep-with-next
+    270          static void USART1_GPIO_Configuration(void){		
+   \                     USART1_GPIO_Configuration:
+   \   00000000   80B5               PUSH     {R7,LR}
+    271                 GPIO_InitTypeDef GPIO_InitStructure;
+    272          
+    273                  //打开GPIO时钟，复用功能，串口1的时钟
+    274                 RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA  | RCC_APB2Periph_AFIO , ENABLE);
+   \   00000002   0121               MOVS     R1,#+1
+   \   00000004   0520               MOVS     R0,#+5
+   \   00000006   ........           BL       RCC_APB2PeriphClockCmd
+    275          
+    276          	//PA9作为USART1的TX端，打开复用，负责发送数据
+    277                 GPIO_StructInit(&GPIO_InitStructure);
+   \   0000000A   00A8               ADD      R0,SP,#+0
+   \   0000000C   ........           BL       GPIO_StructInit
+    278          	
+    279                 GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;	
+   \   00000010   4FF40070           MOV      R0,#+512
+   \   00000014   ADF80000           STRH     R0,[SP, #+0]
+    280                 GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+   \   00000018   0320               MOVS     R0,#+3
+   \   0000001A   8DF80200           STRB     R0,[SP, #+2]
+    281                 GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+   \   0000001E   1820               MOVS     R0,#+24
+   \   00000020   8DF80300           STRB     R0,[SP, #+3]
+    282                 GPIO_Init(GPIOA, &GPIO_InitStructure);
+   \   00000024   00A9               ADD      R1,SP,#+0
+   \   00000026   ....               LDR.N    R0,??DataTable11  ;; 0x40010800
+   \   00000028   ........           BL       GPIO_Init
+    283          
+    284                 //PA10作为USART1的RX端，负责接收数据
+    285                 GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;	
+   \   0000002C   4FF48060           MOV      R0,#+1024
+   \   00000030   ADF80000           STRH     R0,[SP, #+0]
+    286                 GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+   \   00000034   0320               MOVS     R0,#+3
+   \   00000036   8DF80200           STRB     R0,[SP, #+2]
+    287                 GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+   \   0000003A   0420               MOVS     R0,#+4
+   \   0000003C   8DF80300           STRB     R0,[SP, #+3]
+    288                 GPIO_Init(GPIOA, &GPIO_InitStructure);
+   \   00000040   00A9               ADD      R1,SP,#+0
+   \   00000042   ....               LDR.N    R0,??DataTable11  ;; 0x40010800
+   \   00000044   ........           BL       GPIO_Init
+    289          }
+   \   00000048   01BD               POP      {R0,PC}          ;; return
+    290          
+    291          /*******************************************************************************
+    292          * Function Name  : USART1_NVIC_Configuration
+    293          * Description    : Configures the  USART1 NVIC
+    294          * Input          : None.
+    295          * Return         : None.
+    296          *******************************************************************************/
+    297          //配置中断 for USART1
+
+   \                                 In section .text, align 2, keep-with-next
+    298          static void USART1_NVIC_Configuration() {
+   \                     USART1_NVIC_Configuration:
+   \   00000000   80B5               PUSH     {R7,LR}
+    299                  // NVIC init
+    300                  #ifdef VEC_TAB_RAM
+    301                    /* Set the Vector Table base location at 0x20000000 */
+    302                    NVIC_SetVectorTable(NVIC_VectTab_RAM, 0x0);
+    303                  #else  /* VECT_TAB_FLASH  */
+    304                    /* Set the Vector Table base location at 0x08000000 */
+    305                    NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0x0);
+   \   00000002   0021               MOVS     R1,#+0
+   \   00000004   5FF00060           MOVS     R0,#+134217728
+   \   00000008   ........           BL       NVIC_SetVectorTable
+    306                  #endif
+    307          
+    308                  NVIC_InitTypeDef NVIC_InitStructure;
+    309          		
+    310                  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);   //选择中断分组2
+   \   0000000C   4FF4A060           MOV      R0,#+1280
+   \   00000010   ........           BL       NVIC_PriorityGroupConfig
+    311          		
+    312                  NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQChannel;    //选择串口1中断
+   \   00000014   2520               MOVS     R0,#+37
+   \   00000016   8DF80000           STRB     R0,[SP, #+0]
+    313                  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;  //抢占式中断优先级设置为0
+   \   0000001A   0020               MOVS     R0,#+0
+   \   0000001C   8DF80100           STRB     R0,[SP, #+1]
+    314                  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;         //响应式中断优先级设置为0
+   \   00000020   0020               MOVS     R0,#+0
+   \   00000022   8DF80200           STRB     R0,[SP, #+2]
+    315                  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;           //使能中断
+   \   00000026   0120               MOVS     R0,#+1
+   \   00000028   8DF80300           STRB     R0,[SP, #+3]
+    316                  NVIC_Init(&NVIC_InitStructure);
+   \   0000002C   00A8               ADD      R0,SP,#+0
+   \   0000002E   ........           BL       NVIC_Init
+    317          
+    318          }
+   \   00000032   01BD               POP      {R0,PC}          ;; return
+    319          
+    320          /*******************************************************************************
+    321          * Function Name  : USART1_Configuration
+    322          * Description    : Configures the  USART1 Configuration and enable set
+    323          * Input          : None.
+    324          * Return         : None.
+    325          *******************************************************************************/
+    326          //串口初始化 for USART1
+
+   \                                 In section .text, align 2, keep-with-next
+    327          static  void USART1_Configuration() {		
+   \                     USART1_Configuration:
+   \   00000000   00B5               PUSH     {LR}
+   \   00000002   85B0               SUB      SP,SP,#+20
+    328          	
+    329                 USART_InitTypeDef USART_InitStructure;
+    330          	
+    331          	   //打开USART1时钟，串口1的时钟
+    332                 RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
+   \   00000004   0121               MOVS     R1,#+1
+   \   00000006   4FF48040           MOV      R0,#+16384
+   \   0000000A   ........           BL       RCC_APB2PeriphClockCmd
+    333          
+    334          	   //将结构体设置为缺省状态
+    335                 USART_StructInit(&USART_InitStructure);
+   \   0000000E   00A8               ADD      R0,SP,#+0
+   \   00000010   ........           BL       USART_StructInit
+    336          	
+    337              	//波特率设置为115200
+    338                 USART_InitStructure.USART_BaudRate = 115200;
+   \   00000014   5FF4E130           MOVS     R0,#+115200
+   \   00000018   0090               STR      R0,[SP, #+0]
+    339                 //一帧数据的宽度设置为8bits
+    340                 USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+   \   0000001A   0020               MOVS     R0,#+0
+   \   0000001C   ADF80400           STRH     R0,[SP, #+4]
+    341                 //在帧结尾传输1个停止位
+    342                 USART_InitStructure.USART_StopBits = USART_StopBits_1;
+   \   00000020   0020               MOVS     R0,#+0
+   \   00000022   ADF80600           STRH     R0,[SP, #+6]
+    343                 //奇偶失能模式，无奇偶校验
+    344                 USART_InitStructure.USART_Parity = USART_Parity_No;
+   \   00000026   0020               MOVS     R0,#+0
+   \   00000028   ADF80800           STRH     R0,[SP, #+8]
+    345                 //发送/接收使能
+    346                 USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+   \   0000002C   0C20               MOVS     R0,#+12
+   \   0000002E   ADF80A00           STRH     R0,[SP, #+10]
+    347                 //硬件流控制失能
+    348                 USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+   \   00000032   0020               MOVS     R0,#+0
+   \   00000034   ADF80C00           STRH     R0,[SP, #+12]
+    349                 //设置串口1
+    350                 USART_Init(USART1, &USART_InitStructure);
+   \   00000038   00A9               ADD      R1,SP,#+0
+   \   0000003A   ....               LDR.N    R0,??DataTable19  ;; 0x40013800
+   \   0000003C   ........           BL       USART_Init
+    351          	
+    352                 //打开串口1的中断响应函数
+    353                 USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
+   \   00000040   0122               MOVS     R2,#+1
+   \   00000042   40F22551           MOVW     R1,#+1317
+   \   00000046   ....               LDR.N    R0,??DataTable19  ;; 0x40013800
+   \   00000048   ........           BL       USART_ITConfig
+    354          	
+    355                 //打开串口1
+    356                 USART_Cmd(USART1, ENABLE);
+   \   0000004C   0121               MOVS     R1,#+1
+   \   0000004E   ....               LDR.N    R0,??DataTable19  ;; 0x40013800
+   \   00000050   ........           BL       USART_Cmd
+    357          
+    358                    //关闭串口1的中断响应函数
+    359                 //USART_ITConfig(USART1, USART_IT_RXNE,  DISABLE);
+    360          }
+   \   00000054   05B0               ADD      SP,SP,#+20
+   \   00000056   00BD               POP      {PC}             ;; return
+    361          
+    362          /* -------------- End of private Configuration fuction for USART -------------*/
+    363          
+    364          
+    365          /* --------------private Configuration fuction for SPI------------------------*/
+    366          /*******************************************************************************
+    367          * Function Name  :SPI1_GPIO_Configuration
+    368          * Description    : Configures the SPI1 Configuration and enable set
+    369          * Input          : None.
+    370          * Return         : None.
+    371          *******************************************************************************/
+    372          //  SPI1 GPIO 配置
+
+   \                                 In section .text, align 2, keep-with-next
+    373          static void SPI1_GPIO_Configuration(void) {
+   \                     SPI1_GPIO_Configuration:
+   \   00000000   80B5               PUSH     {R7,LR}
+    374          
+    375                GPIO_InitTypeDef GPIO_InitStructure;
+    376          
+    377                /*使能SPI1的时钟，这个接口的时钟挂在APB2上*/
+    378                RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_AFIO, ENABLE);
+   \   00000002   0121               MOVS     R1,#+1
+   \   00000004   0520               MOVS     R0,#+5
+   \   00000006   ........           BL       RCC_APB2PeriphClockCmd
+    379          
+    380                /* 配置SPI1的输出引脚: MOSI(PA.07)、SCK(PA.05)引脚 */
+    381                GPIO_StructInit(&GPIO_InitStructure);
+   \   0000000A   00A8               ADD      R0,SP,#+0
+   \   0000000C   ........           BL       GPIO_StructInit
+    382                GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7 | GPIO_Pin_5;    //SPI_MOSI_PIN | SPI_SCK_PIN
+   \   00000010   A020               MOVS     R0,#+160
+   \   00000012   ADF80000           STRH     R0,[SP, #+0]
+    383                GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;           //push-pull alternate function output mode
+   \   00000016   1820               MOVS     R0,#+24
+   \   00000018   8DF80300           STRB     R0,[SP, #+3]
+    384                GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;         // the speed mode configer
+   \   0000001C   0320               MOVS     R0,#+3
+   \   0000001E   8DF80200           STRB     R0,[SP, #+2]
+    385                GPIO_Init(GPIOA, &GPIO_InitStructure);
+   \   00000022   00A9               ADD      R1,SP,#+0
+   \   00000024   ....               LDR.N    R0,??DataTable11  ;; 0x40010800
+   \   00000026   ........           BL       GPIO_Init
+    386          
+    387                /* 配置SPI1的输入引脚:SPI1  MISO (PA.06) configuration */
+    388                GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;                 //SPI_MISO_PIN
+   \   0000002A   4020               MOVS     R0,#+64
+   \   0000002C   ADF80000           STRH     R0,[SP, #+0]
+    389                GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+   \   00000030   0420               MOVS     R0,#+4
+   \   00000032   8DF80300           STRB     R0,[SP, #+3]
+    390                GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+   \   00000036   0320               MOVS     R0,#+3
+   \   00000038   8DF80200           STRB     R0,[SP, #+2]
+    391                GPIO_Init(GPIOA, &GPIO_InitStructure);
+   \   0000003C   00A9               ADD      R1,SP,#+0
+   \   0000003E   ....               LDR.N    R0,??DataTable11  ;; 0x40010800
+   \   00000040   ........           BL       GPIO_Init
+    392          }
+   \   00000044   01BD               POP      {R0,PC}          ;; return
+    393          
+    394          /*******************************************************************************
+    395          * Function Name  :SPI1_NVIC_Configuration
+    396          * Description    : Configures the  USART1 Configuration and enable set
+    397          * Input          : None.
+    398          * Return         : None.
+    399          *******************************************************************************/
+    400          //SPI1 NVIC 配置
+
+   \                                 In section .text, align 2, keep-with-next
+    401          static void SPI1_NVIC_Configuration(void) {
+   \                     SPI1_NVIC_Configuration:
+   \   00000000   80B5               PUSH     {R7,LR}
+    402                    // NVIC init
+    403                    #ifdef VEC_TAB_RAM
+    404                      /* Set the Vector Table base location at 0x20000000 */
+    405                      NVIC_SetVectorTable(NVIC_VectTab_RAM, 0x0);
+    406                    #else  /* VECT_TAB_FLASH  */
+    407                      /* Set the Vector Table base location at 0x08000000 */
+    408                      NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0x0);
+   \   00000002   0021               MOVS     R1,#+0
+   \   00000004   5FF00060           MOVS     R0,#+134217728
+   \   00000008   ........           BL       NVIC_SetVectorTable
+    409                    #endif
+    410          
+    411                    #if 0
+    412                    //配置中断优先级
+    413                    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
+    414          
+    415                    NVIC_InitTypeDef NVIC_InitStructure;
+    416                    /* Enable SPI1 Interrupt */
+    417                    NVIC_InitStructure.NVIC_IRQChannel = SPI1_IRQChannel;        /****SPI1_IRQChannel**/
+    418                    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+    419                    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    420                    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    421                    NVIC_Init(&NVIC_InitStructure);
+    422              #endif
+    423          }
+   \   0000000C   01BD               POP      {R0,PC}          ;; return
+    424          
+    425          /*******************************************************************************
+    426          * Function Name  : SPI1_Configuration
+    427          * Description    : Configures the  SPI1 Configuration and enable set
+    428          * Input          : None.
+    429          * Return         : None.
+    430          *******************************************************************************/
+    431          // SPI1 的配置
+
+   \                                 In section .text, align 4, keep-with-next
+    432          static void SPI1_Configuration(void) {
+   \                     SPI1_Configuration:
+   \   00000000   00B5               PUSH     {LR}
+   \   00000002   85B0               SUB      SP,SP,#+20
+    433          
+    434                SPI_InitTypeDef  SPI_InitStructure;
+    435          
+    436                 RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1, ENABLE);
+   \   00000004   0121               MOVS     R1,#+1
+   \   00000006   4FF48050           MOV      R0,#+4096
+   \   0000000A   ........           BL       RCC_APB2PeriphClockCmd
+    437                SPI_StructInit(&SPI_InitStructure);
+   \   0000000E   00A8               ADD      R0,SP,#+0
+   \   00000010   ........           BL       SPI_StructInit
+    438          
+    439                /** SPI1 Configuration ****************/
+    440                SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;/****全双工模式****/
+   \   00000014   0020               MOVS     R0,#+0
+   \   00000016   ADF80000           STRH     R0,[SP, #+0]
+    441                SPI_InitStructure.SPI_Mode = SPI_Mode_Master;                     /****主模式********/
+   \   0000001A   4FF48270           MOV      R0,#+260
+   \   0000001E   ADF80200           STRH     R0,[SP, #+2]
+    442                SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;                /**数据长度为1字节**/
+   \   00000022   0020               MOVS     R0,#+0
+   \   00000024   ADF80400           STRH     R0,[SP, #+4]
+    443                SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;               /**每个字节高位在前**/
+   \   00000028   0020               MOVS     R0,#+0
+   \   0000002A   ADF80E00           STRH     R0,[SP, #+14]
+    444                SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;                       /**空闲时处于低电平**/
+   \   0000002E   0020               MOVS     R0,#+0
+   \   00000030   ADF80600           STRH     R0,[SP, #+6]
+    445                /**SPI_InitStructure.SPI_CPHA = SPI_CPHA_2Edge;  **/             /**从第二个时钟周期开始采样*/
+    446                SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;                    /***从第一个时钟周期开始采样**/
+   \   00000034   0020               MOVS     R0,#+0
+   \   00000036   ADF80800           STRH     R0,[SP, #+8]
+    447                SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
+   \   0000003A   4FF40070           MOV      R0,#+512
+   \   0000003E   ADF80A00           STRH     R0,[SP, #+10]
+    448                SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_8;
+   \   00000042   1020               MOVS     R0,#+16
+   \   00000044   ADF80C00           STRH     R0,[SP, #+12]
+    449                SPI_InitStructure.SPI_CRCPolynomial = 7;
+   \   00000048   0720               MOVS     R0,#+7
+   \   0000004A   ADF81000           STRH     R0,[SP, #+16]
+    450          
+    451                SPI_Init(SPI1, &SPI_InitStructure);
+   \   0000004E   00A9               ADD      R1,SP,#+0
+   \   00000050   0448               LDR.N    R0,??SPI1_Configuration_0  ;; 0x40013000
+   \   00000052   ........           BL       SPI_Init
+    452          
+    453                /* Enable SPI1 CRC calculation */
+    454                //SPI_CalculateCRC(SPI_USING, DISABLE);  //使能RCC计算
+    455                //SPI_I2S_ITConfig(SPI_USING, SPI_I2S_IT_RXNE, DISABLE);  //关闭接收中断，
+    456                //SPI_I2S_ITConfig(SPI_USING, SPI_I2S_IT_TXE, DISABLE);   //关闭发送中断
+    457          
+    458                SPI_Cmd(SPI1, ENABLE);           //使能SPI1
+   \   00000056   0121               MOVS     R1,#+1
+   \   00000058   0248               LDR.N    R0,??SPI1_Configuration_0  ;; 0x40013000
+   \   0000005A   ........           BL       SPI_Cmd
+    459          
+    460          }
+   \   0000005E   05B0               ADD      SP,SP,#+20
+   \   00000060   00BD               POP      {PC}             ;; return
+   \   00000062   00BF               Nop      
+   \                     ??SPI1_Configuration_0:
+   \   00000064   00300140           DC32     0x40013000
+    461          
+    462          
+
+   \                                 In section .text, align 2, keep-with-next
+    463          void usart_putc(u8 ch) {
+   \                     usart_putc:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   0400               MOVS     R4,R0
+    464            while( USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET );
+   \                     ??usart_putc_0:
+   \   00000004   8021               MOVS     R1,#+128
+   \   00000006   ....               LDR.N    R0,??DataTable19  ;; 0x40013800
+   \   00000008   ........           BL       USART_GetFlagStatus
+   \   0000000C   0028               CMP      R0,#+0
+   \   0000000E   F9D0               BEQ.N    ??usart_putc_0
+    465            USART_SendData(USART1, ch);
+   \   00000010   E4B2               UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000012   2100               MOVS     R1,R4
+   \   00000014   89B2               UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   00000016   ....               LDR.N    R0,??DataTable19  ;; 0x40013800
+   \   00000018   ........           BL       USART_SendData
+    466          }
+   \   0000001C   10BD               POP      {R4,PC}          ;; return
+    467          
+
+   \                                 In section .text, align 2, keep-with-next
+    468          void usart_puts(u8  str[]) {
+   \                     usart_puts:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   0400               MOVS     R4,R0
+   \   00000004   03E0               B.N      ??usart_puts_0
+    469            while(*str != '\0' ) {
+    470                usart_putc(* str++);
+   \                     ??usart_puts_1:
+   \   00000006   2078               LDRB     R0,[R4, #+0]
+   \   00000008   ........           BL       usart_putc
+   \   0000000C   641C               ADDS     R4,R4,#+1
+    471            }
+   \                     ??usart_puts_0:
+   \   0000000E   2078               LDRB     R0,[R4, #+0]
+   \   00000010   0028               CMP      R0,#+0
+   \   00000012   F8D1               BNE.N    ??usart_puts_1
+    472          }
+   \   00000014   10BD               POP      {R4,PC}          ;; return
+    473          
+
+   \                                 In section .text, align 2, keep-with-next
+    474          void usart_println(void) {
+   \                     usart_println:
+   \   00000000   80B5               PUSH     {R7,LR}
+    475            usart_putc('\n');
+   \   00000002   0A20               MOVS     R0,#+10
+   \   00000004   ........           BL       usart_putc
+    476            usart_putc('\r');
+   \   00000008   0D20               MOVS     R0,#+13
+   \   0000000A   ........           BL       usart_putc
+    477          }
+   \   0000000E   01BD               POP      {R0,PC}          ;; return
+    478          
+
+   \                                 In section .text, align 2, keep-with-next
+    479          void usart_cls() {
+   \                     usart_cls:
+   \   00000000   80B5               PUSH     {R7,LR}
+    480            usart_putc(0x0c);
+   \   00000002   0C20               MOVS     R0,#+12
+   \   00000004   ........           BL       usart_putc
+    481            usart_putc(0x0c);
+   \   00000008   0C20               MOVS     R0,#+12
+   \   0000000A   ........           BL       usart_putc
+    482          }
+   \   0000000E   01BD               POP      {R0,PC}          ;; return
+    483          
+
+   \                                 In section .text, align 2, keep-with-next
+    484          void usart_printArray( u8 * array, u32 arraySize) {
+   \                     usart_printArray:
+   \   00000000   70B5               PUSH     {R4-R6,LR}
+   \   00000002   0500               MOVS     R5,R0
+   \   00000004   0C00               MOVS     R4,R1
+    485            for(int i=0; i<arraySize; i++) {
+   \   00000006   0026               MOVS     R6,#+0
+   \   00000008   04E0               B.N      ??usart_printArray_0
+    486                usart_putc(* array++);
+   \                     ??usart_printArray_1:
+   \   0000000A   2878               LDRB     R0,[R5, #+0]
+   \   0000000C   ........           BL       usart_putc
+   \   00000010   6D1C               ADDS     R5,R5,#+1
+    487            }
+   \   00000012   761C               ADDS     R6,R6,#+1
+   \                     ??usart_printArray_0:
+   \   00000014   A642               CMP      R6,R4
+   \   00000016   F8D3               BCC.N    ??usart_printArray_1
+    488          }
+   \   00000018   70BD               POP      {R4-R6,PC}       ;; return
+    489          
+
+   \                                 In section .text, align 2, keep-with-next
+    490          void USART_EXTI_DoIt(){
+   \                     USART_EXTI_DoIt:
+   \   00000000   10B5               PUSH     {R4,LR}
+    491          	if( USART_GetFlagStatus(USART1, USART_FLAG_RXNE) == SET ) {
+   \   00000002   2021               MOVS     R1,#+32
+   \   00000004   ....               LDR.N    R0,??DataTable19  ;; 0x40013800
+   \   00000006   ........           BL       USART_GetFlagStatus
+   \   0000000A   0128               CMP      R0,#+1
+   \   0000000C   1CD1               BNE.N    ??USART_EXTI_DoIt_0
+    492          		
+    493                u8 ch = USART_ReceiveData(USART1);
+   \   0000000E   ....               LDR.N    R0,??DataTable19  ;; 0x40013800
+   \   00000010   ........           BL       USART_ReceiveData
+   \   00000014   0400               MOVS     R4,R0
+    494                USART_SendData(USART1, ch);
+   \   00000016   E4B2               UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000018   2100               MOVS     R1,R4
+   \   0000001A   89B2               UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   0000001C   ....               LDR.N    R0,??DataTable19  ;; 0x40013800
+   \   0000001E   ........           BL       USART_SendData
+    495                while( USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET );
+   \                     ??USART_EXTI_DoIt_1:
+   \   00000022   8021               MOVS     R1,#+128
+   \   00000024   ....               LDR.N    R0,??DataTable19  ;; 0x40013800
+   \   00000026   ........           BL       USART_GetFlagStatus
+   \   0000002A   0028               CMP      R0,#+0
+   \   0000002C   F9D0               BEQ.N    ??USART_EXTI_DoIt_1
+    496          
+    497                if(ch == '\r') {
+   \   0000002E   E4B2               UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000030   0D2C               CMP      R4,#+13
+   \   00000032   09D1               BNE.N    ??USART_EXTI_DoIt_2
+    498                    USART_SendData(USART1, '\n');
+   \   00000034   0A21               MOVS     R1,#+10
+   \   00000036   ....               LDR.N    R0,??DataTable19  ;; 0x40013800
+   \   00000038   ........           BL       USART_SendData
+    499                    while( USART_GetFlagStatus(USART1, USART_FLAG_TXE));
+   \                     ??USART_EXTI_DoIt_3:
+   \   0000003C   8021               MOVS     R1,#+128
+   \   0000003E   ....               LDR.N    R0,??DataTable19  ;; 0x40013800
+   \   00000040   ........           BL       USART_GetFlagStatus
+   \   00000044   0028               CMP      R0,#+0
+   \   00000046   F9D1               BNE.N    ??USART_EXTI_DoIt_3
+    500          
+    501                }
+    502          
+    503            }
+    504          
+    505          }
+   \                     ??USART_EXTI_DoIt_2:
+   \                     ??USART_EXTI_DoIt_0:
+   \   00000048   10BD               POP      {R4,PC}          ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4:
+   \   00000000   ........           DC32     TimingDelay
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11:
+   \   00000000   00080140           DC32     0x40010800
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable19:
+   \   00000000   00380140           DC32     0x40013800
+    506          
+    507          
+    508          /* ------------End of private Configuration fuction for SPI-------------------*/
+    509          /***--------------------------Expired functions--------------------------------------*/
+    510          
+    511          
+    512          /******************* (C) COPYRIGHT 2011 SDUEM *****END OF FILE****/
+
+   Maximum stack usage in bytes:
+
+     Function                  .cstack
+     --------                  -------
+     Decrement_TimingDelay          0
+     RCC_Configuration              8
+     RCC_Configuration_1            8
+     SPI1_Configuration            24
+     SPI1_GPIO_Configuration        8
+     SPI1_NVIC_Configuration        8
+     SPI_Configuration              8
+     SysTick_Configuration          8
+     System_Init                    8
+     USART1_Configuration          24
+     USART1_GPIO_Configuration      8
+     USART1_NVIC_Configuration      8
+     USART_Configuration            8
+     USART_EXTI_DoIt                8
+     delay_us                       8
+     usart_cls                      8
+     usart_printArray              16
+     usart_println                  8
+     usart_putc                     8
+     usart_puts                     8
+
+
+   Section sizes:
+
+     Function/Label            Bytes
+     --------------            -----
+     TimingDelay                  4
+     RCC_Configuration          110
+     RCC_Configuration_1        122
+     SysTick_Configuration       22
+     delay_us                    36
+     Decrement_TimingDelay       20
+     USART_Configuration         16
+     SPI_Configuration           16
+     System_Init                 16
+     USART1_GPIO_Configuration   74
+     USART1_NVIC_Configuration   52
+     USART1_Configuration        88
+     SPI1_GPIO_Configuration     70
+     SPI1_NVIC_Configuration     14
+     SPI1_Configuration         104
+     usart_putc                  30
+     usart_puts                  22
+     usart_println               16
+     usart_cls                   16
+     usart_printArray            26
+     USART_EXTI_DoIt             74
+     ??DataTable4                 4
+     ??DataTable11                4
+     ??DataTable19                4
+
+ 
+   4 bytes in section .bss
+ 956 bytes in section .text
+ 
+ 956 bytes of CODE memory
+   4 bytes of DATA memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,154 @@
+###############################################################################
+#                                                                             #
+# IAR ANSI C/C++ Compiler V5.30.2.51295/W32 for ARM     11/Apr/2011  13:51:30 #
+# Copyright 1999-2009 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Users\LiYang\Desktop\newest\Demo\source\fifo.c        #
+#    Command line =  C:\Users\LiYang\Desktop\newest\Demo\source\fifo.c -lC    #
+#                    C:\Users\LiYang\Desktop\newest\Demo\project\EWARMv5\Debu #
+#                    g\List\ -lb C:\Users\LiYang\Desktop\newest\Demo\project\ #
+#                    EWARMv5\Debug\List\ -o C:\Users\LiYang\Desktop\newest\De #
+#                    mo\project\EWARMv5\Debug\Obj\ --debug --endian=little    #
+#                    --cpu=Cortex-M3 -e --fpu=None --dlib_config "E:\Program  #
+#                    Files\IAR Systems\Embedded Workbench                     #
+#                    5.4\arm\INC\DLib_Config_Full.h" -I                       #
+#                    C:\Users\LiYang\Desktop\newest\Demo\project\EWARMv5\..\. #
+#                    .\include\ -I C:\Users\LiYang\Desktop\newest\Demo\projec #
+#                    t\EWARMv5\..\..\source\ -I C:\Users\LiYang\Desktop\newes #
+#                    t\Demo\project\EWARMv5\..\..\..\FWLib\library\inc\ -I    #
+#                    C:\Users\LiYang\Desktop\newest\Demo\project\EWARMv5\..\. #
+#                    .\..\USBLib\library\inc\ -I                              #
+#                    C:\Users\LiYang\Desktop\newest\Demo\project\EWARMv5\..\. #
+#                    .\fatfs\ -I "E:\Program Files\IAR Systems\Embedded       #
+#                    Workbench 5.4\arm\INC\" -Ohz                             #
+#    List file    =  C:\Users\LiYang\Desktop\newest\Demo\project\EWARMv5\Debu #
+#                    g\List\fifo.lst                                          #
+#    Object file  =  C:\Users\LiYang\Desktop\newest\Demo\project\EWARMv5\Debu #
+#                    g\Obj\fifo.o                                             #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Users\LiYang\Desktop\newest\Demo\source\fifo.c
+      1          
+      2          
+      3          #include "fifo.h"
+      4          
+      5          
+
+   \                                 In section .text, align 4, keep-with-next
+      6          void  FIFO_Set_GPIO_Config(void)
+      7          {
+   \                     FIFO_Set_GPIO_Config:
+   \   00000000   80B5               PUSH     {R7,LR}
+      8            
+      9            GPIO_InitTypeDef GPIO_InitStructure;
+     10            /* Enable GPIOA clock */
+     11            RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+   \   00000002   0121               MOVS     R1,#+1
+   \   00000004   0820               MOVS     R0,#+8
+   \   00000006   ........           BL       RCC_APB2PeriphClockCmd
+     12            GPIO_InitStructure.GPIO_Pin =FIFO_RD_BIT|FIFO_WRST_BIT|FIFO_RRST_BIT|FIFO_CS_BIT;                               
+   \   0000000A   4FF47060           MOV      R0,#+3840
+   \   0000000E   ........           BL       ?Subroutine1
+     13            GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+     14            GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+     15            GPIO_Init(GPIOB, &GPIO_InitStructure);
+   \                     ??CrossCallReturnLabel_0:
+   \   00000012   ....               LDR.N    R0,??DataTable1  ;; 0x40010c00
+   \   00000014   ........           BL       GPIO_Init
+     16            RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
+   \   00000018   0121               MOVS     R1,#+1
+   \   0000001A   1020               MOVS     R0,#+16
+   \   0000001C   ........           BL       RCC_APB2PeriphClockCmd
+     17            GPIO_InitStructure.GPIO_Pin =FIFO_WE_BIT;                               
+   \   00000020   2020               MOVS     R0,#+32
+   \   00000022   ........           BL       ?Subroutine1
+     18            GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+     19            GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+     20            GPIO_Init(GPIOC, &GPIO_InitStructure);
+   \                     ??CrossCallReturnLabel_1:
+   \   00000026   ....               LDR.N    R0,??Subroutine0_0  ;; 0x40011000
+   \   00000028                      REQUIRE ?Subroutine0
+   \   00000028                      ;; // Fall through to label ?Subroutine0
+     21            
+     22            
+     23            
+     24          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   ........           BL       GPIO_Init
+   \   00000004   01BD               POP      {R0,PC}          ;; return
+   \   00000006   00BF               Nop      
+   \                     ??Subroutine0_0:
+   \   00000008   00100140           DC32     0x40011000
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine1:
+   \   00000000   ADF80000           STRH     R0,[SP, #+0]
+   \   00000004   1020               MOVS     R0,#+16
+   \   00000006   8DF80300           STRB     R0,[SP, #+3]
+   \   0000000A   0320               MOVS     R0,#+3
+   \   0000000C   8DF80200           STRB     R0,[SP, #+2]
+   \   00000010   00A9               ADD      R1,SP,#+0
+   \   00000012   7047               BX       LR
+
+   \                                 In section .text, align 2, keep-with-next
+     25          void FIFO_GPIO_INPUT(void)
+     26          {
+   \                     FIFO_GPIO_INPUT:
+   \   00000000   80B5               PUSH     {R7,LR}
+     27            GPIO_InitTypeDef GPIO_InitStructure;
+     28          
+     29            /* Enable GPIOB clock */
+     30            RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB|RCC_APB2Periph_AFIO, ENABLE);
+   \   00000002   0121               MOVS     R1,#+1
+   \   00000004   0920               MOVS     R0,#+9
+   \   00000006   ........           BL       RCC_APB2PeriphClockCmd
+     31            GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7;
+   \   0000000A   FF20               MOVS     R0,#+255
+   \   0000000C   ADF80000           STRH     R0,[SP, #+0]
+     32            GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+   \   00000010   0420               MOVS     R0,#+4
+   \   00000012   8DF80300           STRB     R0,[SP, #+3]
+     33            GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+   \   00000016   0320               MOVS     R0,#+3
+   \   00000018   8DF80200           STRB     R0,[SP, #+2]
+     34            GPIO_Init(GPIOB, &GPIO_InitStructure);
+   \   0000001C   00A9               ADD      R1,SP,#+0
+   \   0000001E   ....               LDR.N    R0,??DataTable1  ;; 0x40010c00
+   \   00000020   ....               B.N      ?Subroutine0
+     35          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \   00000000   000C0140           DC32     0x40010c00
+
+   Maximum stack usage in bytes:
+
+     Function             .cstack
+     --------             -------
+     FIFO_GPIO_INPUT           8
+     FIFO_Set_GPIO_Config      8
+
+
+   Section sizes:
+
+     Function/Label       Bytes
+     --------------       -----
+     FIFO_Set_GPIO_Config   40
+     ?Subroutine0           12
+     ?Subroutine1           20
+     FIFO_GPIO_INPUT        34
+     ??DataTable1            4
+
+ 
+ 110 bytes in section .text
+ 
+ 110 bytes of CODE memory
+
+Errors: none
+Warnings: none

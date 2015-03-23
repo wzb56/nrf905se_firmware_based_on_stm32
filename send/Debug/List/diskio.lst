@@ -1,0 +1,446 @@
+###############################################################################
+#                                                                             #
+# IAR ANSI C/C++ Compiler V5.30.2.51295/W32 for ARM     11/Apr/2011  13:51:25 #
+# Copyright 1999-2009 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Users\LiYang\Desktop\newest\Demo\fatfs\diskio.c       #
+#    Command line =  C:\Users\LiYang\Desktop\newest\Demo\fatfs\diskio.c -lC   #
+#                    C:\Users\LiYang\Desktop\newest\Demo\project\EWARMv5\Debu #
+#                    g\List\ -lb C:\Users\LiYang\Desktop\newest\Demo\project\ #
+#                    EWARMv5\Debug\List\ -o C:\Users\LiYang\Desktop\newest\De #
+#                    mo\project\EWARMv5\Debug\Obj\ --debug --endian=little    #
+#                    --cpu=Cortex-M3 -e --fpu=None --dlib_config "E:\Program  #
+#                    Files\IAR Systems\Embedded Workbench                     #
+#                    5.4\arm\INC\DLib_Config_Full.h" -I                       #
+#                    C:\Users\LiYang\Desktop\newest\Demo\project\EWARMv5\..\. #
+#                    .\include\ -I C:\Users\LiYang\Desktop\newest\Demo\projec #
+#                    t\EWARMv5\..\..\source\ -I C:\Users\LiYang\Desktop\newes #
+#                    t\Demo\project\EWARMv5\..\..\..\FWLib\library\inc\ -I    #
+#                    C:\Users\LiYang\Desktop\newest\Demo\project\EWARMv5\..\. #
+#                    .\..\USBLib\library\inc\ -I                              #
+#                    C:\Users\LiYang\Desktop\newest\Demo\project\EWARMv5\..\. #
+#                    .\fatfs\ -I "E:\Program Files\IAR Systems\Embedded       #
+#                    Workbench 5.4\arm\INC\" -Ohz                             #
+#    List file    =  C:\Users\LiYang\Desktop\newest\Demo\project\EWARMv5\Debu #
+#                    g\List\diskio.lst                                        #
+#    Object file  =  C:\Users\LiYang\Desktop\newest\Demo\project\EWARMv5\Debu #
+#                    g\Obj\diskio.o                                           #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Users\LiYang\Desktop\newest\Demo\fatfs\diskio.c
+      1          /*-----------------------------------------------------------------------*/
+      2          /* Low level disk I/O module skeleton for FatFs     (C)ChaN, 2007        */
+      3          /*-----------------------------------------------------------------------*/
+      4          /* This is a stub disk I/O module that acts as front end of the existing */
+      5          /* disk I/O modules and attach it to FatFs module with common interface. */
+      6          /*-----------------------------------------------------------------------*/
+      7          //#include "stm32f10x_lib.h"
+      8          #include "stdio.h"
+      9          #include "diskio.h"
+     10          #include "sdcard.h"
+     11          #include "Include.h"
+     12          /*-----------------------------------------------------------------------*/
+     13          /* Correspondence between physical drive number and physical drive.      */
+     14          
+     15          #define ATA		0
+     16          #define MMC		1
+     17          #define USB		2
+     18          #define SECTOR_SIZE 		512U /* Block Size in Bytes */
+     19          
+     20          /*******************************************************************************
+     21          * Function Name  : SD_Insert_Serve 
+     22          * Description    : SD card insert or out serve                 
+     23          * Input          : None
+     24          * Output         : None
+     25          * Return         : SD_Error: SD Card Error code.
+     26          *******************************************************************************/
+
+   \                                 In section .text, align 4, keep-with-next
+     27          void SD_Insert_Serve(void)
+     28          {	
+   \                     SD_Insert_Serve:
+   \   00000000   38B5               PUSH     {R3-R5,LR}
+     29          	
+     30          	if( SD_nCD_STATUS() == SD_NOT_IN )
+   \   00000002   094C               LDR.N    R4,??SD_Insert_Serve_0  ;; gEquipStatus
+   \   00000004   094D               LDR.N    R5,??SD_Insert_Serve_0+0x4  ;; 0x40011000
+   \   00000006   ........           BL       ?Subroutine0
+   \                     ??CrossCallReturnLabel_1:
+   \   0000000A   0128               CMP      R0,#+1
+   \   0000000C   02D1               BNE.N    ??SD_Insert_Serve_1
+     31          	{
+     32          		gEquipStatus.SD_status = STA_NODISK;						
+   \   0000000E   0220               MOVS     R0,#+2
+   \   00000010   2070               STRB     R0,[R4, #+0]
+   \   00000012   31BD               POP      {R0,R4,R5,PC}
+     33          	}
+     34          	else if( SD_nCD_STATUS() == SD_YES_IN )
+   \                     ??SD_Insert_Serve_1:
+   \   00000014   ........           BL       ?Subroutine0
+   \                     ??CrossCallReturnLabel_0:
+   \   00000018   0028               CMP      R0,#+0
+   \   0000001A   03D1               BNE.N    ??SD_Insert_Serve_2
+     35          	{					
+     36          		gEquipStatus.SD_status = disk_initialize(0);
+   \   0000001C   ........           BL       disk_initialize
+   \   00000020   2070               STRB     R0,[R4, #+0]
+     37          		if(gEquipStatus.SD_status == STA_OK)
+   \   00000022   2078               LDRB     R0,[R4, #+0]
+     38          		{
+     39          			//if(TimerExist(T_WORK))	{ gEquipStatus.SD_status = STA_OK_T; }
+     40          			//if(SD_WP_STATUS() == SD_YES_WP)	{ gEquipStatus.SD_status = STA_PROTECT; }						
+     41          		}								
+     42          	}
+     43          
+     44          }
+   \                     ??SD_Insert_Serve_2:
+   \   00000024   31BD               POP      {R0,R4,R5,PC}    ;; return
+   \   00000026   00BF               Nop      
+   \                     ??SD_Insert_Serve_0:
+   \   00000028   ........           DC32     gEquipStatus
+   \   0000002C   00100140           DC32     0x40011000
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   4FF40051           MOV      R1,#+8192
+   \   00000004   2846               MOV      R0,R5
+   \   00000006   ........           B.W      GPIO_ReadInputDataBit
+     45          
+     46          /*-----------------------------------------------------------------------*/
+     47          /* Inidialize a Drive                                                    */
+     48          
+
+   \                                 In section .text, align 2, keep-with-next
+     49          DSTATUS disk_initialize (
+     50          	BYTE drv				/* Physical drive nmuber (0..) */
+     51          )
+     52          {
+   \                     disk_initialize:
+   \   00000000   00B5               PUSH     {LR}
+   \   00000002   95B0               SUB      SP,SP,#+84
+     53          	SD_Error state;	
+     54          	SD_CardInfo SDCardInfo;
+     55          
+     56          	//if (drv)
+     57              //{    
+     58              //    return STA_PARERR;  //仅支持单磁盘操作，否则返回参数错误
+     59              //}
+     60          
+     61          	//if(no medium);
+     62          	
+     63          	state = SD_Init();
+   \   00000004   ........           BL       SD_Init
+     64          
+     65              
+     66          	if (state == SD_OK)	{
+   \   00000008   2A28               CMP      R0,#+42
+   \   0000000A   18D1               BNE.N    ??disk_initialize_0
+     67          		    //----------------- Read CSD/CID MSD registers ------------------
+     68          		state = SD_GetCardInfo(&SDCardInfo);
+   \   0000000C   00A8               ADD      R0,SP,#+0
+   \   0000000E   ........           BL       SD_GetCardInfo
+     69          	}else	{
+     70          	  	return STA_NOINIT;  //其他错误：初始化失败
+     71          	}
+     72          		  
+     73          	if (state == SD_OK)	{
+   \   00000012   2A28               CMP      R0,#+42
+   \   00000014   13D1               BNE.N    ??disk_initialize_0
+     74          	//----------------- Select Card --------------------------------
+     75          		state = SD_SelectDeselect((u32) (SDCardInfo.RCA << 16));
+   \   00000016   BDF84C00           LDRH     R0,[SP, #+76]
+   \   0000001A   0004               LSLS     R0,R0,#+16
+   \   0000001C   ........           BL       SD_SelectDeselect
+     76          	}else{
+     77          	  	return STA_NOINIT;  //其他错误：初始化失败
+     78          	} 
+     79          	
+     80          	if (state == SD_OK)
+   \   00000020   2A28               CMP      R0,#+42
+   \   00000022   0CD1               BNE.N    ??disk_initialize_0
+     81          	{
+     82          	    state = SD_EnableWideBusOperation(SDIO_BusWide_4b);
+   \   00000024   4FF40060           MOV      R0,#+2048
+   \   00000028   ........           BL       SD_EnableWideBusOperation
+     83          	}
+     84          	else
+     85          	{
+     86          		return STA_NOINIT;  //其他错误：初始化失败
+     87          	}	  
+     88          	// Set Device Transfer Mode to DMA 
+     89          	if (state == SD_OK)
+   \   0000002C   2A28               CMP      R0,#+42
+   \   0000002E   06D1               BNE.N    ??disk_initialize_0
+     90          	{  
+     91          		state = SD_SetDeviceMode(SD_DMA_MODE);
+   \   00000030   0020               MOVS     R0,#+0
+   \   00000032   ........           BL       SD_SetDeviceMode
+     92          	 	//state = SD_SetDeviceMode(SD_POLLING_MODE);
+     93          	    //state = SD_SetDeviceMode(SD_INTERRUPT_MODE);		
+     94          	}else{
+     95          	  	return STA_NOINIT;  //其他错误：初始化失败
+     96          	}
+     97          	
+     98          	if (state == SD_OK)
+   \   00000036   2A28               CMP      R0,#+42
+   \   00000038   01D1               BNE.N    ??disk_initialize_0
+     99          	{
+    100          	  	return STA_OK;           //初始化成功
+   \   0000003A   0020               MOVS     R0,#+0
+   \   0000003C   00E0               B.N      ??disk_initialize_1
+    101          	}
+    102             
+    103          	return STA_NOINIT;
+   \                     ??disk_initialize_0:
+   \   0000003E   0120               MOVS     R0,#+1
+   \                     ??disk_initialize_1:
+   \   00000040   15B0               ADD      SP,SP,#+84
+   \   00000042   00BD               POP      {PC}             ;; return
+    104          }
+    105          
+    106          
+    107          
+    108          /*-----------------------------------------------------------------------*/
+    109          /* Return Disk Status                                                    */
+    110          
+
+   \                                 In section .text, align 2, keep-with-next
+    111          DSTATUS disk_status (
+    112          	BYTE drv		/* Physical drive nmuber (0..) */
+    113          )
+    114          {
+   \                     disk_status:
+   \   00000000   0100               MOVS     R1,R0
+    115          	if(drv)
+   \   00000002   00D0               BEQ.N    ??disk_status_0
+   \   00000004   0120               MOVS     R0,#+1
+    116              {
+    117                  return STA_NOINIT;  //仅支持磁盘0操作
+    118              }
+    119          
+    120              //检查SD卡是否插入
+    121             // if(!SD_DET())
+    122             // {
+    123             //     return STA_NODISK;
+    124             // }
+    125              return 0;
+   \                     ??disk_status_0:
+   \   00000006   7047               BX       LR               ;; return
+    126          //	return STA_NOINIT;
+    127          }
+    128          
+    129          
+    130          
+    131          /*-----------------------------------------------------------------------*/
+    132          /* Read Sector(s)                                                        */
+    133          
+
+   \                                 In section .text, align 2, keep-with-next
+    134          DRESULT disk_read (
+    135          	BYTE drv,		/* Physical drive nmuber (0..) */
+    136          	BYTE *buff,		/* Data buffer to store read data */
+    137          	DWORD sector,	/* Sector address (LBA) */
+    138          	BYTE count		/* Number of sectors to read (1..255) */
+    139          )
+    140          {
+   \                     disk_read:
+   \   00000000   80B5               PUSH     {R7,LR}
+    141          	SD_Error res = SD_OK;
+    142              if (drv || !count)
+   \   00000002   0028               CMP      R0,#+0
+   \   00000004   01D1               BNE.N    ??disk_read_0
+   \   00000006   002B               CMP      R3,#+0
+   \   00000008   01D1               BNE.N    ??disk_read_1
+    143              {    
+    144                  return RES_PARERR;  //仅支持单磁盘操作，count不能等于0，否则返回参数错误
+   \                     ??disk_read_0:
+   \   0000000A   0420               MOVS     R0,#+4
+   \   0000000C   02BD               POP      {R1,PC}
+    145              }
+    146              //if(!SD_DET())
+    147             // {
+    148              //    return RES_NOTRDY;  //没有检测到SD卡，报NOT READY错误
+    149             // }
+    150          
+    151          	if(count==1)
+   \                     ??disk_read_1:
+   \   0000000E   5002               LSLS     R0,R2,#+9
+   \   00000010   012B               CMP      R3,#+1
+   \   00000012   4FF40072           MOV      R2,#+512
+   \   00000016   02D1               BNE.N    ??disk_read_2
+    152              {
+    153          		res = SD_ReadBlock(sector << 9 ,(u32 *)(&buff[0]),SECTOR_SIZE);        
+   \   00000018   ........           BL       SD_ReadBlock
+   \   0000001C   01E0               B.N      ??disk_read_3
+    154          	}
+    155          	else
+    156              {
+    157          		res =  SD_ReadMultiBlocks(sector << 9 ,(u32 *)(&buff[0]),SECTOR_SIZE,count);        
+   \                     ??disk_read_2:
+   \   0000001E   ........           BL       SD_ReadMultiBlocks
+    158          	} 
+    159          	
+    160          	if(res == SD_OK)
+   \                     ??disk_read_3:
+   \   00000022   2A28               CMP      R0,#+42
+   \   00000024   01D1               BNE.N    ??disk_read_4
+    161              {
+    162                  return RES_OK;
+   \   00000026   0020               MOVS     R0,#+0
+   \   00000028   02BD               POP      {R1,PC}
+    163              }
+    164              else
+    165              {
+    166                  return RES_ERROR;
+   \                     ??disk_read_4:
+   \   0000002A   0120               MOVS     R0,#+1
+   \   0000002C   02BD               POP      {R1,PC}          ;; return
+    167              }  
+    168          }
+    169          
+    170          
+    171          
+    172          /*-----------------------------------------------------------------------*/
+    173          /* Write Sector(s)                                                       */
+    174          
+    175          #if _READONLY == 0
+
+   \                                 In section .text, align 2, keep-with-next
+    176          DRESULT disk_write (
+    177          	BYTE drv,			/* Physical drive nmuber (0..) */
+    178          	const BYTE *buff,	/* Data to be written */
+    179          	DWORD sector,		/* Sector address (LBA) */
+    180          	BYTE count			/* Number of sectors to write (1..255) */
+    181          )
+    182          {
+   \                     disk_write:
+   \   00000000   80B5               PUSH     {R7,LR}
+    183          	SD_Error res = SD_OK;
+    184          
+    185              if (drv || !count)
+   \   00000002   0028               CMP      R0,#+0
+   \   00000004   01D1               BNE.N    ??disk_write_0
+   \   00000006   002B               CMP      R3,#+0
+   \   00000008   01D1               BNE.N    ??disk_write_1
+    186              {    
+    187                  return RES_PARERR;  //仅支持单磁盘操作，count不能等于0，否则返回参数错误
+   \                     ??disk_write_0:
+   \   0000000A   0420               MOVS     R0,#+4
+   \   0000000C   02BD               POP      {R1,PC}
+    188              }
+    189          
+    190          	if(count==1)
+   \                     ??disk_write_1:
+   \   0000000E   5002               LSLS     R0,R2,#+9
+   \   00000010   012B               CMP      R3,#+1
+   \   00000012   4FF40072           MOV      R2,#+512
+   \   00000016   02D1               BNE.N    ??disk_write_2
+    191              {          
+    192              	res =SD_WriteBlock(sector << 9 ,(u32 *)(&buff[0]),SECTOR_SIZE);
+   \   00000018   ........           BL       SD_WriteBlock
+   \   0000001C   01E0               B.N      ??disk_write_3
+    193          	}
+    194          	else
+    195              {          
+    196              	res = SD_WriteMultiBlocks(sector << 9 ,(u32 *)(&buff[0]),SECTOR_SIZE,count);
+   \                     ??disk_write_2:
+   \   0000001E   ........           BL       SD_WriteMultiBlocks
+    197          	}
+    198                  
+    199            	if(res == SD_OK)
+   \                     ??disk_write_3:
+   \   00000022   2A28               CMP      R0,#+42
+   \   00000024   01D1               BNE.N    ??disk_write_4
+    200              {
+    201                  return RES_OK;
+   \   00000026   0020               MOVS     R0,#+0
+   \   00000028   02BD               POP      {R1,PC}
+    202              }
+    203              else
+    204              {
+    205                  return RES_ERROR;
+   \                     ??disk_write_4:
+   \   0000002A   0120               MOVS     R0,#+1
+   \   0000002C   02BD               POP      {R1,PC}          ;; return
+    206              }  
+    207          }
+    208          #endif /* _READONLY */
+    209          
+    210          
+    211          
+    212          /*-----------------------------------------------------------------------*/
+    213          /* Miscellaneous Functions                                               */
+    214          
+
+   \                                 In section .text, align 2, keep-with-next
+    215          DRESULT disk_ioctl (
+    216          	BYTE drv,		/* Physical drive nmuber (0..) */
+    217          	BYTE ctrl,		/* Control code */
+    218          	void *buff		/* Buffer to send/receive control data */
+    219          )
+    220          {
+    221          	return RES_OK;
+   \                     disk_ioctl:
+   \   00000000   0020               MOVS     R0,#+0
+   \   00000002   7047               BX       LR               ;; return
+    222          }
+    223          
+
+   \                                 In section .text, align 2, keep-with-next
+    224          DWORD get_fattime (void)
+    225          {
+    226          	//struct tm t;
+    227             // DWORD fattime;
+    228            //  t = Time_GetCalendarTime();
+    229             // t.tm_year -= 1980;		//年份改为1980年起
+    230             // t.tm_mon++;         	//0-11月改为1-12月
+    231             // t.tm_sec /= 2;      	//将秒数改为0-29
+    232              
+    233            //  fattime = 0;
+    234            //  fattime = (t.tm_year << 25)|(t.tm_mon<<21)|(t.tm_mday<<16)|\
+    235                        (t.tm_hour<<11)|(t.tm_min<<5)|(t.tm_sec);
+    236          
+    237              return 0;
+   \                     get_fattime:
+   \   00000000   0020               MOVS     R0,#+0
+   \   00000002   7047               BX       LR               ;; return
+    238          }
+    239          
+
+   Maximum stack usage in bytes:
+
+     Function        .cstack
+     --------        -------
+     SD_Insert_Serve     16
+     disk_initialize     88
+     disk_ioctl           0
+     disk_read            8
+     disk_status          0
+     disk_write           8
+     get_fattime          0
+
+
+   Section sizes:
+
+     Function/Label  Bytes
+     --------------  -----
+     SD_Insert_Serve   48
+     ?Subroutine0      10
+     disk_initialize   68
+     disk_status        8
+     disk_read         46
+     disk_write        46
+     disk_ioctl         4
+     get_fattime        4
+
+ 
+ 234 bytes in section .text
+ 
+ 234 bytes of CODE memory
+
+Errors: none
+Warnings: none
