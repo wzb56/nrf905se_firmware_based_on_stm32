@@ -12,6 +12,8 @@
 4. 具体硬件的板子的配置可能略有差别：如GPIO等。
 
 5. 代码的目录tree结构如下：
+
+```
 .
 |-- READ.md
 |-- receive
@@ -96,5 +98,4 @@
         |-- STM3210E-EVAL_Demo.wsdt
         |-- STM3210E-EVAL_Demo_Debug.jlink
         `-- STM32_Camera_Demo.wsdt
-
-24 directories, 59 files
+```
